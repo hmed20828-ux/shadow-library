@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadow Library</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080E1C;color:#E8F1FF;font-family:Arial,sans-serif}
+header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center;background:#0D1930;border-bottom:1px solid #142B4A}
+.logo{font-size:25px;font-weight:bold;color:#65B8FF;letter-spacing:2px}
+nav a{color:#E8F1FF;text-decoration:none;margin-left:18px;font-size:14px}
+.hero{padding:75px 8%;text-align:center;background:linear-gradient(130deg,#142B4A,#080E1C)}
+.hero h1{font-size:42px;margin:10px 0;color:#fff}
+.hero p{color:#b8cce5;font-size:17px;line-height:1.7}
+.btn{display:inline-block;background:#2463A6;color:white;padding:13px 25px;border-radius:7px;text-decoration:none;margin-top:15px}
+section{padding:35px 7%}
+h2{color:#65B8FF}
+.categories{display:flex;flex-wrap:wrap;gap:12px}
+.category{background:#142B4A;padding:14px 20px;border-radius:8px}
+.book{background:#101D32;border:1px solid #1c3d63;border-radius:12px;padding:22px;margin:15px 0}
+.book h3{color:#65B8FF}
+.parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.part{background:#142B4A;padding:17px;border-radius:9px}
+.price{font-size:22px;color:#65B8FF;font-weight:bold}
+footer{text-align:center;padding:30px;color:#8299b6;border-top:1px solid #142B4A}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">SHADOW LIBRARY</div>
+<nav><a href="#home">Home</a><a href="#library">Library</a><a href="#about">About</a></nav>
+</header>
+
+<div class="hero" id="home">
+<p>WELCOME TO SHADOW LIBRARY</p>
+<h1>Stories Beyond Imagination</h1>
+<p>Enter worlds of horror, mystery, fantasy and adventure.<br>Discover stories hidden between the pages.</p>
+<a class="btn" href="#library">Explore Library</a>
+</div>
+
+<section>
+<h2>Explore Categories</h2>
+<div class="categories">
+<div class="category">Horror & Mystery</div>
+<div class="category">Fantasy</div>
+<div class="category">Isekai</div>
+<div class="category">Action & Adventure</div>
+<div class="category">Dark Fantasy</div>
+</div>
+</section>
+
+<section id="library">
+<h2>Featured Series</h2>
+<div class="book">
+<h3>THE CURSED HOUSE</h3>
+<p>A four-part horror mystery series.</p>
+<p>Four parts. Four mysteries. One cursed house.</p>
+<div class="parts">
+<div class="part"><b>Part 1</b><p>Two free chapters</p><div class="price">$3</div></div>
+<div class="part"><b>Part 2</b><p>Two free chapters</p><div class="price">$5</div></div>
+<div class="part"><b>Part 3</b><p>Two free chapters</p><div class="price">$7</div></div>
+<div class="part"><b>Part 4</b><p>Two free chapters</p><div class="price">$10</div></div>
+</div>
+</div>
+</section>
+
+<section id="about">
+<h2>About Shadow Library</h2>
+<p>A place for unforgettable stories, mysterious worlds and dark secrets.</p>
+</section>
+
+<footer>© 2026 Shadow Library. All rights reserved.</footer>
+</body>
+</html>

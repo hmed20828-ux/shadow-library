@@ -1,75 +1,191 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shadow Library</title>
+<title>Shadow Library | Stories Beyond Imagination</title>
 <style>
+:root{
+--bg:#080E1C;
+--panel:#101D32;
+--blue:#142B4A;
+--accent:#2463A6;
+--light:#65B8FF;
+--white:#E8F1FF;
+--muted:#9DB1CA;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#080E1C;color:#E8F1FF;font-family:Arial,sans-serif}
-header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center;background:#0D1930;border-bottom:1px solid #142B4A}
-.logo{font-size:25px;font-weight:bold;color:#65B8FF;letter-spacing:2px}
-nav a{color:#E8F1FF;text-decoration:none;margin-left:18px;font-size:14px}
-.hero{padding:75px 8%;text-align:center;background:linear-gradient(130deg,#142B4A,#080E1C)}
-.hero h1{font-size:42px;margin:10px 0;color:#fff}
-.hero p{color:#b8cce5;font-size:17px;line-height:1.7}
-.btn{display:inline-block;background:#2463A6;color:white;padding:13px 25px;border-radius:7px;text-decoration:none;margin-top:15px}
+body{
+margin:0;background:var(--bg);color:var(--white);
+font-family:Arial,sans-serif;
+}
+header{
+background:#0D1930;padding:18px 6%;
+display:flex;justify-content:space-between;
+align-items:center;gap:12px;flex-wrap:wrap;
+border-bottom:1px solid #203B60;
+}
+.logo{font-size:23px;font-weight:bold;color:var(--light)}
+nav{display:flex;gap:17px;align-items:center;flex-wrap:wrap}
+nav a{color:var(--white);text-decoration:none;font-size:14px}
+button{cursor:pointer}
+.lang{
+background:var(--accent);color:white;border:0;
+padding:10px 15px;border-radius:7px;
+}
+.hero{
+text-align:center;padding:85px 18px;
+background:radial-gradient(ellipse at top,#1B3C65,#080E1C 72%);
+}
+.hero .small{color:var(--light);letter-spacing:4px}
+.hero h1{font-size:clamp(32px,7vw,54px);margin:18px 0}
+.hero p{color:var(--muted);line-height:1.9;max-width:600px;margin:auto}
+.primary{
+display:inline-block;background:var(--accent);
+color:white;text-decoration:none;padding:13px 25px;
+border-radius:7px;margin-top:24px;
+}
 section{padding:35px 7%}
-h2{color:#65B8FF}
-.categories{display:flex;flex-wrap:wrap;gap:12px}
-.category{background:#142B4A;padding:14px 20px;border-radius:8px}
-.book{background:#101D32;border:1px solid #1c3d63;border-radius:12px;padding:22px;margin:15px 0}
-.book h3{color:#65B8FF}
-.parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
-.part{background:#142B4A;padding:17px;border-radius:9px}
-.price{font-size:22px;color:#65B8FF;font-weight:bold}
-footer{text-align:center;padding:30px;color:#8299b6;border-top:1px solid #142B4A}
+h2{color:var(--light);margin-bottom:22px}
+.categories{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+gap:13px;
+}
+.category{
+background:var(--blue);padding:19px 12px;
+border:1px solid #294D76;border-radius:9px;
+text-align:center;color:var(--white);
+}
+.book{
+background:var(--panel);border:1px solid #254568;
+border-radius:13px;overflow:hidden;
+}
+.cover{
+min-height:190px;
+background:linear-gradient(145deg,#1D3C64,#080E1C);
+display:flex;align-items:center;justify-content:center;
+text-align:center;padding:25px;
+}
+.cover strong{font-size:28px;color:#E8F1FF;line-height:1.3}
+.book-info{padding:20px}
+.book-info h3{color:var(--light);margin-top:0}
+.muted{color:var(--muted);line-height:1.8}
+.status{
+display:inline-block;padding:7px 11px;
+background:#183B36;color:#8DE3C2;
+border-radius:20px;font-size:12px;
+}
+.parts{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+gap:12px;margin-top:20px;
+}
+.part{
+background:#142B4A;padding:15px;border-radius:8px;
+border:1px solid #31577F;
+}
+.part b{color:var(--light)}
+.part p{font-size:13px;color:var(--muted)}
+footer{
+text-align:center;padding:30px 15px;
+border-top:1px solid #203B60;color:var(--muted);
+}
+@media(max-width:500px){
+header{justify-content:center}
+nav{justify-content:center}
+}
 </style>
 </head>
 <body>
+
 <header>
 <div class="logo">SHADOW LIBRARY</div>
-<nav><a href="#home">Home</a><a href="#library">Library</a><a href="#about">About</a></nav>
+<nav>
+<a href="#home" data-en="Home" data-ar="الرئيسية">Home</a>
+<a href="#categories" data-en="Categories" data-ar="التصنيفات">Categories</a>
+<a href="#library" data-en="Library" data-ar="المكتبة">Library</a>
+<a href="#about" data-en="About" data-ar="من نحن">About</a>
+<button class="lang" onclick="toggleLang()">العربية</button>
+</nav>
 </header>
 
+<main>
 <div class="hero" id="home">
-<p>WELCOME TO SHADOW LIBRARY</p>
-<h1>Stories Beyond Imagination</h1>
-<p>Enter worlds of horror, mystery, fantasy and adventure.<br>Discover stories hidden between the pages.</p>
-<a class="btn" href="#library">Explore Library</a>
+<div class="small">WELCOME TO SHADOW LIBRARY</div>
+<h1 data-en="Stories Beyond Imagination"
+data-ar="قصص تتجاوز حدود الخيال">
+Stories Beyond Imagination</h1>
+<p data-en="Discover mysterious worlds, terrifying secrets and unforgettable adventures. Your next favorite story begins here."
+data-ar="اكتشف عوالم غامضة وأسراراً مرعبة ومغامرات لا تُنسى. قصتك المفضلة القادمة تبدأ من هنا.">
+Discover mysterious worlds, terrifying secrets and unforgettable adventures. Your next favorite story begins here.
+</p>
+<a href="#library" class="primary"
+data-en="Explore Library" data-ar="اكتشف المكتبة">Explore Library</a>
 </div>
 
-<section>
-<h2>Explore Categories</h2>
+<section id="categories">
+<h2 data-en="Explore Categories" data-ar="اكتشف التصنيفات">Explore Categories</h2>
 <div class="categories">
-<div class="category">Horror & Mystery</div>
-<div class="category">Fantasy</div>
-<div class="category">Isekai</div>
-<div class="category">Action & Adventure</div>
-<div class="category">Dark Fantasy</div>
+<div class="category">👻 Horror & Mystery</div>
+<div class="category">🐉 Fantasy</div>
+<div class="category">🌌 Isekai</div>
+<div class="category">⚔️ Action & Adventure</div>
+<div class="category">🌑 Dark Fantasy</div>
 </div>
 </section>
 
 <section id="library">
-<h2>Featured Series</h2>
+<h2 data-en="Featured Stories" data-ar="قصص مميزة">Featured Stories</h2>
 <div class="book">
+<div class="cover">
+<strong>THE<br>CURSED<br>HOUSE</strong>
+</div>
+<div class="book-info">
+<span class="status" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
 <h3>THE CURSED HOUSE</h3>
-<p>A four-part horror mystery series.</p>
-<p>Four parts. Four mysteries. One cursed house.</p>
+<p class="muted"
+data-en="A four-part psychological horror and mystery series. Four parts. Four mysteries. One cursed house."
+data-ar="سلسلة من أربعة أجزاء تجمع بين الرعب النفسي والغموض. أربعة أجزاء، أربعة ألغاز، ومنزل واحد ملعون.">
+A four-part psychological horror and mystery series. Four parts. Four mysteries. One cursed house.
+</p>
 <div class="parts">
-<div class="part"><b>Part 1</b><p>Two free chapters</p><div class="price">$3</div></div>
-<div class="part"><b>Part 2</b><p>Two free chapters</p><div class="price">$5</div></div>
-<div class="part"><b>Part 3</b><p>Two free chapters</p><div class="price">$7</div></div>
-<div class="part"><b>Part 4</b><p>Two free chapters</p><div class="price">$10</div></div>
+<div class="part"><b>Part 1</b><p data-en="In development" data-ar="قيد الكتابة">In development</p></div>
+<div class="part"><b>Part 2</b><p data-en="Coming later" data-ar="قريباً">Coming later</p></div>
+<div class="part"><b>Part 3</b><p data-en="Coming later" data-ar="قريباً">Coming later</p></div>
+<div class="part"><b>Part 4</b><p data-en="Coming later" data-ar="قريباً">Coming later</p></div>
+</div>
 </div>
 </div>
 </section>
 
 <section id="about">
-<h2>About Shadow Library</h2>
-<p>A place for unforgettable stories, mysterious worlds and dark secrets.</p>
+<h2 data-en="About Shadow Library" data-ar="عن Shadow Library">About Shadow Library</h2>
+<p class="muted"
+data-en="Shadow Library is a home for original stories, mysterious worlds and unforgettable characters. Explore new adventures and discover stories worth remembering."
+data-ar="Shadow Library هي موطن القصص الأصلية والعوالم الغامضة والشخصيات التي لا تُنسى. اكتشف مغامرات جديدة وحكايات تستحق أن تبقى في الذاكرة.">
+Shadow Library is a home for original stories, mysterious worlds and unforgettable characters.
+</p>
 </section>
+</main>
 
-<footer>© 2026 Shadow Library. All rights reserved.</footer>
+<footer>
+SHADOW LIBRARY © 2026
+<p data-en="Every story hides a secret."
+data-ar="خلف كل قصة سر.">Every story hides a secret.</p>
+</footer>
+
+<script>
+let currentLang="en";
+function toggleLang(){
+currentLang=currentLang==="en"?"ar":"en";
+document.documentElement.lang=currentLang;
+document.documentElement.dir=currentLang==="ar"?"rtl":"ltr";
+document.querySelectorAll("[data-en]").forEach(el=>{
+el.textContent=el.getAttribute("data-"+currentLang);
+});
+document.querySelector(".lang").textContent=
+currentLang==="en"?"العربية":"English";
+}
+</script>
 </body>
 </html>

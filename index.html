@@ -194,13 +194,17 @@ data-ar="خلف كل قصة سر.">Every story hides a secret.</p>
 
 <script>
 let currentLang="en";
+
 function toggleLang(){
 currentLang=currentLang==="en"?"ar":"en";
+
 document.documentElement.lang=currentLang;
 document.documentElement.dir=currentLang==="ar"?"rtl":"ltr";
+
 document.querySelectorAll("[data-en]").forEach(el=>{
-el.textContent=el.getAttribute("data-"+currentLang);
+el.innerHTML=el.getAttribute("data-"+currentLang);
 });
+
 document.querySelector(".lang").textContent=
 currentLang==="en"?"العربية":"English";
 }

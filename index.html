@@ -1,227 +1,288 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shadow Library | Stories Beyond Imagination</title>
+<meta name="theme-color" content="#101a2b">
+<title>Shadow Library</title>
 <style>
 :root{
---bg:#080E1C;
---panel:#101D32;
---blue:#142B4A;
---accent:#2463A6;
---light:#65B8FF;
---white:#E8F1FF;
---muted:#9DB1CA;
+  --bg:#101a2b; --surface:#18263a; --surface2:#20334b; --surface3:#293f59;
+  --accent:#e8a65a; --accent2:#f4c17e; --text:#f4f6fb; --muted:#aab8ca;
+  --line:rgba(255,255,255,.09); --shadow:0 18px 45px rgba(0,0,0,.25);
 }
 *{box-sizing:border-box}
-  body{
-margin:0;
-background:
-linear-gradient(rgba(8,14,28,0.78),rgba(8,14,28,0.88)),
-url('https://raw.githubusercontent.com/hmed20828-ux/shadow-library/main/309821521_1793999968949480.jpg');
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
-background-repeat:no-repeat;
-color:var(--white);
-font-family:Arial,sans-serif;
-}
-header{
-background:#0D1930;padding:18px 6%;
-display:flex;justify-content:space-between;
-align-items:center;gap:12px;flex-wrap:wrap;
-border-bottom:1px solid #203B60;
-}
-.logo{font-size:23px;font-weight:bold;color:var(--light)}
-nav{display:flex;gap:17px;align-items:center;flex-wrap:wrap}
-nav a{color:var(--white);text-decoration:none;font-size:14px}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh}
+button,input{font:inherit}
 button{cursor:pointer}
-.lang{
-background:var(--accent);color:white;border:0;
-padding:10px 15px;border-radius:7px;
+a{color:inherit;text-decoration:none}
+.app{display:flex;min-height:100vh}
+.sidebar{width:250px;flex:0 0 250px;background:#0c1422;border-right:1px solid var(--line);padding:25px 17px;position:fixed;inset:0 auto 0 0;z-index:30;display:flex;flex-direction:column;transition:transform .25s}
+.brand{display:flex;align-items:center;gap:11px;padding:4px 9px 30px}
+.brand-mark{width:39px;height:39px;border-radius:12px;background:linear-gradient(145deg,var(--accent2),#a9692d);display:grid;place-items:center;color:#1a2230;font-size:22px;font-weight:900;box-shadow:0 7px 20px #e8a65a33}
+.brand-name{font-size:16px;font-weight:800;letter-spacing:1.4px}
+.brand-sub{font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:4px}
+.nav-label{font-size:10px;letter-spacing:1.8px;color:#718198;padding:15px 12px 9px}
+.nav-link{width:100%;border:0;background:transparent;color:#aebbd0;padding:12px 13px;border-radius:10px;display:flex;align-items:center;gap:13px;text-align:left;font-size:13px;margin:2px 0;transition:.2s}
+.nav-link .ico{width:20px;text-align:center;font-size:16px}
+.nav-link:hover,.nav-link.active{background:linear-gradient(90deg,#e8a65a22,transparent);color:var(--accent2)}
+.sidebar-bottom{margin-top:auto;padding:14px 12px;color:#718198;font-size:11px;line-height:1.7}
+.main{margin-left:250px;width:calc(100% - 250px);min-width:0}
+.topbar{height:76px;padding:0 4.5%;display:flex;align-items:center;gap:18px;border-bottom:1px solid var(--line);background:#101a2beF;position:sticky;top:0;z-index:20;backdrop-filter:blur(14px)}
+.menu-btn{display:none}
+.search-wrap{position:relative;max-width:460px;flex:1}
+.search-wrap span{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#91a0b5}
+.search{width:100%;background:#1a2a40;border:1px solid var(--line);border-radius:12px;padding:12px 15px 12px 42px;color:var(--text);outline:none;font-size:13px}
+.search:focus{border-color:#e8a65a88;box-shadow:0 0 0 3px #e8a65a12}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.ghost-btn{border:1px solid var(--line);background:#1a2a40;color:var(--text);padding:10px 13px;border-radius:10px;font-size:12px}
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#e8a65a,#9d6736);color:#17202c;font-weight:800}
+.content{padding:28px 4.5% 55px;max-width:1500px;margin:auto}
+.hero{min-height:330px;border-radius:22px;overflow:hidden;position:relative;padding:48px;display:flex;align-items:center;background:radial-gradient(ellipse at 78% 35%,#52617b 0%,transparent 33%),linear-gradient(110deg,#1d3048 0%,#17263b 48%,#332c31 100%);box-shadow:var(--shadow);border:1px solid #ffffff12}
+.hero:before{content:"";position:absolute;width:330px;height:430px;right:12%;top:-40px;transform:rotate(14deg);border-radius:48% 48% 12px 12px;background:linear-gradient(145deg,#d49b61,#593f3d 45%,#172337 80%);opacity:.25;filter:blur(1px)}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,23,37,.15),rgba(13,23,37,.1) 55%,rgba(13,23,37,.65))}
+.hero-copy{position:relative;z-index:2;max-width:560px}
+.eyebrow{color:var(--accent2);font-size:10px;letter-spacing:3px;font-weight:800}
+.hero h1{font-size:clamp(30px,4vw,48px);line-height:1.08;margin:16px 0 13px;max-width:540px}
+.hero p{color:#c1cada;line-height:1.8;font-size:13px;max-width:480px;margin:0}
+.hero-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:24px}
+.primary-btn{background:var(--accent);color:#1a2431;border:0;border-radius:9px;padding:12px 18px;font-size:12px;font-weight:800}
+.secondary-btn{background:#ffffff12;color:white;border:1px solid #ffffff2b;border-radius:9px;padding:12px 18px;font-size:12px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:34px 0 17px}
+.section-head h2{font-size:19px;margin:0}
+.section-head p{color:var(--muted);font-size:11px;margin:6px 0 0}
+.view-all{color:var(--accent2);font-size:11px;background:none;border:0}
+.category-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.category-card{border:1px solid var(--line);background:linear-gradient(145deg,#243951,#17263a);border-radius:13px;padding:18px 12px;min-height:93px;text-align:left;color:var(--text);transition:.2s}
+.category-card:hover{transform:translateY(-3px);border-color:#e8a65a66}
+.category-icon{font-size:21px;display:block;margin-bottom:10px}
+.category-name{font-size:12px;font-weight:700}
+.card-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.media-card{min-width:0;cursor:pointer}
+.cover{height:220px;border-radius:13px;overflow:hidden;position:relative;display:flex;align-items:end;padding:16px;border:1px solid #ffffff14;box-shadow:0 10px 25px #0003;transition:.25s}
+.media-card:hover .cover{transform:translateY(-5px);box-shadow:0 18px 35px #0005}
+.cover:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(5,10,18,.82) 100%)}
+.cover-title{position:relative;z-index:1;font-family:Georgia,serif;font-size:23px;line-height:1.05;font-weight:bold;text-shadow:0 2px 10px #000}
+.cover-tag{position:absolute;top:12px;left:12px;z-index:2;background:#0b1424b8;border:1px solid #ffffff2b;border-radius:20px;padding:5px 8px;font-size:9px;color:#f6d4a6}
+.cover-art{position:absolute;inset:0;display:grid;place-items:center;font-size:65px;opacity:.75;text-shadow:0 10px 35px #0008}
+.cover-art:after{content:"";position:absolute;width:70%;height:70%;border:1px solid #ffffff30;border-radius:50%;transform:rotate(-25deg) scaleY(.55)}
+.media-info{padding:10px 2px}
+.media-info h3{font-size:12px;margin:0 0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.rating{color:var(--accent2)}
+.empty{padding:35px;text-align:center;color:var(--muted);background:var(--surface);border-radius:13px;grid-column:1/-1;font-size:13px}
+.page-view{display:none}
+.page-view.active{display:block}
+.detail-panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:25px;display:grid;grid-template-columns:210px 1fr;gap:25px}
+.detail-cover{min-height:285px;border-radius:13px;display:grid;place-items:center;font-size:70px;background:linear-gradient(145deg,#53637a,#17283e 65%,#a06b47)}
+.detail-text h1{margin:5px 0 10px;font-size:28px}
+.detail-text p{color:var(--muted);line-height:1.8;font-size:13px;max-width:720px}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0}
+.pill{border:1px solid var(--line);color:#c5d0df;padding:6px 9px;border-radius:30px;font-size:10px}
+.detail-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.reader{background:#f1eadf;color:#27231f;border-radius:13px;padding:30px;max-width:800px;margin:22px auto;line-height:2;font-family:Georgia,serif}
+.reader h2{text-align:center;color:#493b30}
+.reader-controls{display:flex;justify-content:space-between;gap:10px;max-width:800px;margin:auto}
+.footer{border-top:1px solid var(--line);padding:25px 4.5%;color:#728198;font-size:10px;display:flex;justify-content:space-between;gap:15px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:#e8a65a;color:#17202c;padding:11px 17px;border-radius:9px;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:60}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.overlay{display:none}
+[dir="rtl"] .sidebar{left:auto;right:0;border-right:0;border-left:1px solid var(--line)}
+[dir="rtl"] .main{margin-left:0;margin-right:250px}
+[dir="rtl"] .search-wrap span{left:auto;right:15px}
+[dir="rtl"] .search{padding:12px 42px 12px 15px}
+[dir="rtl"] .nav-link{text-align:right}
+[dir="rtl"] .top-actions{margin-left:0;margin-right:auto}
+[dir="rtl"] .hero:before{right:auto;left:12%}
+[dir="rtl"] .hero:after{transform:scaleX(-1)}
+[dir="rtl"] .cover-tag{left:auto;right:12px}
+@media(max-width:1100px){.card-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){
+ .sidebar{transform:translateX(-100%);width:270px}
+ [dir="rtl"] .sidebar{transform:translateX(100%)}
+ .sidebar.open{transform:translateX(0)}
+ .main,[dir="rtl"] .main{margin:0;width:100%}
+ .menu-btn{display:block}
+ .topbar{height:65px;padding:0 15px;gap:10px}
+ .content{padding:18px 15px 40px}
+ .hero{min-height:330px;padding:28px 23px}
+ .hero:before{right:-35px;opacity:.18}
+ .card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+ .cover{height:205px}
+ .category-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .category-card{padding:13px 9px;min-height:84px}
+ .section-head{margin-top:27px}
+ .detail-panel{grid-template-columns:1fr;padding:17px}
+ .detail-cover{min-height:190px}
+ .footer{padding:20px 15px;flex-direction:column}
+ .overlay{position:fixed;inset:0;background:#0009;z-index:25}
+ .overlay.show{display:block}
+ .search-wrap{max-width:none}
+ .top-actions .avatar{display:none}
 }
-.hero{
-text-align:center;
-padding:100px 18px;
-background:
-linear-gradient(rgba(8,14,28,0.55),rgba(8,14,28,0.85)),
-url('https://raw.githubusercontent.com/hmed20828-ux/shadow-library/main/309821521_1793999968949480.jpg');
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
-}
-.hero .small{color:var(--light);letter-spacing:4px}
-.hero h1{font-size:clamp(32px,7vw,54px);margin:18px 0}
-.hero p{color:var(--muted);line-height:1.9;max-width:600px;margin:auto}
-.primary{
-display:inline-block;background:var(--accent);
-color:white;text-decoration:none;padding:13px 25px;
-border-radius:7px;margin-top:24px;
-}
-section{padding:35px 7%}
-h2{color:var(--light);margin-bottom:22px}
-.categories{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
-gap:13px;
-}
-.category{
-background:var(--blue);padding:19px 12px;
-border:1px solid #294D76;border-radius:9px;
-text-align:center;color:var(--white);
-}
-.book{
-background:var(--panel);border:1px solid #254568;
-border-radius:13px;overflow:hidden;
-}
-.cover{
-min-height:190px;
-background:linear-gradient(145deg,#1D3C64,#080E1C);
-display:flex;align-items:center;justify-content:center;
-text-align:center;padding:25px;
-}
-.cover strong{font-size:28px;color:#E8F1FF;line-height:1.3}
-.book-info{padding:20px}
-.book-info h3{color:var(--light);margin-top:0}
-.muted{color:var(--muted);line-height:1.8}
-.status{
-display:inline-block;padding:7px 11px;
-background:#183B36;color:#8DE3C2;
-border-radius:20px;font-size:12px;
-}
-.parts{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-gap:12px;margin-top:20px;
-}
-.part{
-background:#142B4A;padding:15px;border-radius:8px;
-border:1px solid #31577F;
-}
-.part b{color:var(--light)}
-.part p{font-size:13px;color:var(--muted)}
-footer{
-text-align:center;padding:30px 15px;
-border-top:1px solid #203B60;color:var(--muted);
-}
-@media(max-width:500px){
-header{justify-content:center}
-nav{justify-content:center}
-}
+@media(max-width:390px){.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:29px}.search{font-size:11px}}
 </style>
 </head>
 <body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-mark">S</div><div><div class="brand-name">SHADOW LIBRARY</div><div class="brand-sub">A WORLD OF STORIES</div></div></div>
+  <div class="nav-label" data-en="DISCOVER" data-ar="اكتشف">DISCOVER</div>
+  <button class="nav-link active" data-page="home"><span class="ico">⌂</span><span data-en="Home" data-ar="الرئيسية">Home</span></button>
+  <button class="nav-link" data-page="books"><span class="ico">▤</span><span data-en="E-Books" data-ar="الكتب الإلكترونية">E-Books</span></button>
+  <button class="nav-link" data-page="novels"><span class="ico">✧</span><span data-en="Novels" data-ar="الروايات">Novels</span></button>
+  <button class="nav-link" data-page="movies"><span class="ico">▣</span><span data-en="Movies" data-ar="الأفلام">Movies</span></button>
+  <button class="nav-link" data-page="series"><span class="ico">▤</span><span data-en="TV Series" data-ar="المسلسلات">TV Series</span></button>
+  <button class="nav-link" data-page="anime"><span class="ico">✦</span><span data-en="Anime" data-ar="الأنمي">Anime</span></button>
+  <div class="nav-label" data-en="YOUR SPACE" data-ar="مساحتك">YOUR SPACE</div>
+  <button class="nav-link" data-page="favorites"><span class="ico">♡</span><span data-en="My Library" data-ar="مكتبتي">My Library</span></button>
+  <button class="nav-link" data-page="settings"><span class="ico">⚙</span><span data-en="Settings" data-ar="الإعدادات">Settings</span></button>
+  <div class="sidebar-bottom">SHADOW LIBRARY © 2026<br><span data-en="Stories beyond imagination." data-ar="قصص تتجاوز حدود الخيال.">Stories beyond imagination.</span></div>
+</aside>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<header>
-<div class="logo">SHADOW LIBRARY</div>
-<nav>
-<a href="#home" data-en="Home" data-ar="الرئيسية">Home</a>
-<a href="#categories" data-en="Categories" data-ar="التصنيفات">Categories</a>
-<a href="#library" data-en="Library" data-ar="المكتبة">Library</a>
-<a href="#about" data-en="About" data-ar="من نحن">About</a>
-</nav>
-<button class="lang" onclick="toggleLang()">العربية</button>
+<div class="main">
+<header class="topbar">
+  <button class="ghost-btn menu-btn" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+  <div class="search-wrap"><span>⌕</span><input class="search" id="searchInput" type="search" placeholder="Search books, novels or authors..." data-placeholder-en="Search books, novels or authors..." data-placeholder-ar="ابحث عن كتاب أو رواية أو كاتب..."></div>
+  <div class="top-actions">
+    <button class="ghost-btn" onclick="toggleLanguage()" id="languageBtn">العربية</button>
+    <div class="avatar">S</div>
+  </div>
 </header>
 
-<main>
-<div class="hero" id="home">
-<div class="small">WELCOME TO SHADOW LIBRARY</div>
-<h1 data-en="Stories Beyond Imagination"
-data-ar="قصص تتجاوز حدود الخيال">
-Stories Beyond Imagination</h1>
-<p data-en="Discover mysterious worlds, terrifying secrets and unforgettable adventures. Your next favorite story begins here."
-data-ar="اكتشف عوالم غامضة وأسراراً مرعبة ومغامرات لا تُنسى. قصتك المفضلة القادمة تبدأ من هنا.">
-Discover mysterious worlds, terrifying secrets and unforgettable adventures. Your next favorite story begins here.
-</p>
-<a href="#library" class="primary"
-data-en="Explore Library" data-ar="اكتشف المكتبة">Explore Library</a>
-</div>
+<div class="content">
+  <div id="homePage" class="page-view active">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow" data-en="YOUR NEXT WORLD IS WAITING" data-ar="عالمك القادم بانتظارك">YOUR NEXT WORLD IS WAITING</div>
+        <h1 data-en="Enter a world beyond imagination." data-ar="ادخل عالماً يتجاوز حدود الخيال.">Enter a world beyond imagination.</h1>
+        <p data-en="Discover unforgettable stories, explore mysterious worlds, and find your next favorite read or watch — all in one place." data-ar="اكتشف قصصاً لا تُنسى، واستكشف عوالم غامضة، واعثر على قراءتك أو مشاهدتك القادمة في مكان واحد.">Discover unforgettable stories, explore mysterious worlds, and find your next favorite read or watch — all in one place.</p>
+        <div class="hero-actions"><button class="primary-btn" onclick="showPage('novels')" data-en="Explore Stories →" data-ar="اكتشف القصص ←">Explore Stories →</button><button class="secondary-btn" onclick="showPage('books')" data-en="Browse Library" data-ar="تصفح المكتبة">Browse Library</button></div>
+      </div>
+    </section>
+    <div class="section-head"><div><h2 data-en="Explore Categories" data-ar="استكشف التصنيفات">Explore Categories</h2><p data-en="Choose the world you want to enter" data-ar="اختر العالم الذي تريد دخوله">Choose the world you want to enter</p></div></div>
+    <div class="category-grid">
+      <button class="category-card" onclick="showPage('novels')"><span class="category-icon">📖</span><span class="category-name" data-en="Novels" data-ar="الروايات">Novels</span></button>
+      <button class="category-card" onclick="showPage('books')"><span class="category-icon">📚</span><span class="category-name" data-en="E-Books" data-ar="الكتب الإلكترونية">E-Books</span></button>
+      <button class="category-card" onclick="showPage('movies')"><span class="category-icon">🎬</span><span class="category-name" data-en="Movies" data-ar="الأفلام">Movies</span></button>
+      <button class="category-card" onclick="showPage('series')"><span class="category-icon">📺</span><span class="category-name" data-en="TV Series" data-ar="المسلسلات">TV Series</span></button>
+      <button class="category-card" onclick="showPage('anime')"><span class="category-icon">⚔️</span><span class="category-name" data-en="Anime" data-ar="الأنمي">Anime</span></button>
+      <button class="category-card" onclick="showPage('favorites')"><span class="category-icon">♡</span><span class="category-name" data-en="My Library" data-ar="مكتبتي">My Library</span></button>
+    </div>
+    <div class="section-head"><div><h2 data-en="Featured Stories" data-ar="قصص مميزة">Featured Stories</h2><p data-en="Handpicked worlds to begin your journey" data-ar="عوالم مختارة لتبدأ رحلتك">Handpicked worlds to begin your journey</p></div><button class="view-all" onclick="showPage('novels')" data-en="View all →" data-ar="عرض الكل ←">View all →</button></div>
+    <div class="card-grid" id="featuredGrid"></div>
+  </div>
 
-<section id="categories">
+  <div id="listingPage" class="page-view">
+    <div class="section-head"><div><h2 id="listingTitle">Novels</h2><p id="listingSubtitle">Explore the collection</p></div></div>
+    <div class="card-grid" id="listingGrid"></div>
+  </div>
 
-<section id="categories">
-<h2 data-en="Explore Categories" data-ar="اكتشف التصنيفات">Explore Categories</h2>
-<div class="categories">
+  <div id="detailPage" class="page-view">
+    <button class="ghost-btn" onclick="goBack()" style="margin-bottom:17px" data-en="← Back to library" data-ar="→ العودة إلى المكتبة">← Back to library</button>
+    <div id="detailContent"></div>
+  </div>
 
-<div class="category">
-<span>👻 </span><span data-en="Horror & Mystery" data-ar="الرعب والغموض">Horror & Mystery</span>
+  <div id="settingsPage" class="page-view">
+    <div class="section-head"><div><h2 data-en="Settings" data-ar="الإعدادات">Settings</h2><p data-en="Personalize your library experience" data-ar="خصص تجربة مكتبتك">Personalize your library experience</p></div></div>
+    <div class="detail-panel" style="display:block">
+      <h3 data-en="Language" data-ar="اللغة">Language</h3><p class="muted" data-en="Choose the interface language." data-ar="اختر لغة واجهة الموقع.">Choose the interface language.</p>
+      <button class="primary-btn" onclick="toggleLanguage()" data-en="Switch to Arabic / English" data-ar="التبديل بين العربية والإنجليزية">Switch to Arabic / English</button>
+      <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
+      <h3 data-en="Your data" data-ar="بياناتك">Your data</h3><p class="muted" data-en="Your favorites and reading position are saved in this browser on this device." data-ar="يتم حفظ مفضلاتك وموضع القراءة في هذا المتصفح على هذا الجهاز.">Your favorites and reading position are saved in this browser on this device.</p>
+      <button class="ghost-btn" onclick="clearFavorites()" data-en="Clear my favorites" data-ar="مسح المفضلة">Clear my favorites</button>
+    </div>
+  </div>
 </div>
-
-<div class="category">
-<span>🐉 </span><span data-en="Fantasy" data-ar="الفانتازيا">Fantasy</span>
-</div>
-
-<div class="category">
-<img src="https://raw.githubusercontent.com/hmed20828-ux/shadow-library/main/file_00000000974c81f4ab89794366434116.png" alt="Isekai" style="width:100%;height:150px;object-fit:cover;border-radius:8px;">
-<p data-en="Isekai" data-ar="إيسيكاي">Isekai</p>
-</div>
-
-<div class="category">
-<span>⚔️ </span><span data-en="Action & Adventure" data-ar="الأكشن والمغامرات">Action & Adventure</span>
-</div>
-
-<div class="category">
-<span>🌑 </span><span data-en="Dark Fantasy" data-ar="الفانتازيا المظلمة">Dark Fantasy</span>
-</div>
-
-</div>
-</section>
-<section id="library">
-<h2 data-en="Featured Stories" data-ar="قصص مميزة">Featured Stories</h2>
-<div class="book">
-<div class="cover">
-<strong>THE<br>CURSED<br>HOUSE</strong>
-</div>
-<div class="book-info">
-<span class="status" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-<h3>THE CURSED HOUSE</h3>
-<p class="muted"
-data-en="A four-part psychological horror and mystery series. Four parts. Four mysteries. One cursed house."
-data-ar="سلسلة من أربعة أجزاء تجمع بين الرعب النفسي والغموض. أربعة أجزاء، أربعة ألغاز، ومنزل واحد ملعون.">
-A four-part psychological horror and mystery series. Four parts. Four mysteries. One cursed house.
-</p>
-<div class="parts">
-<div class="part"><b>Part 1</b><p data-en="In development" data-ar="قيد الكتابة">In development</p></div>
-<div class="part"><b>Part 2</b><p data-en="Coming later" data-ar="قريباً">Coming later</p></div>
-<div class="part"><b>Part 3</b><p data-en="Coming later" data-ar="قريباً">Coming later</p></div>
-<div class="part"><b>Part 4</b><p data-en="Coming later" data-ar="قريباً">Coming later</p></div>
+<footer class="footer"><span>SHADOW LIBRARY © 2026</span><span data-en="Every story hides a secret." data-ar="خلف كل قصة سر.">Every story hides a secret.</span></footer>
 </div>
 </div>
-</div>
-</section>
-
-<section id="about">
-<h2 data-en="About Shadow Library" data-ar="عن Shadow Library">About Shadow Library</h2>
-<p class="muted"
-data-en="Shadow Library is a home for original stories, mysterious worlds and unforgettable characters. Explore new adventures and discover stories worth remembering."
-data-ar="Shadow Library هي موطن القصص الأصلية والعوالم الغامضة والشخصيات التي لا تُنسى. اكتشف مغامرات جديدة وحكايات تستحق أن تبقى في الذاكرة.">
-Shadow Library is a home for original stories, mysterious worlds and unforgettable characters.
-</p>
-</section>
-</main>
-
-<footer>
-SHADOW LIBRARY © 2026
-<p data-en="Every story hides a secret."
-data-ar="خلف كل قصة سر.">Every story hides a secret.</p>
-</footer>
+<div class="toast" id="toast"></div>
 
 <script>
-let currentLang="en";
-
-function toggleLang(){
-currentLang=currentLang==="en"?"ar":"en";
-
-document.documentElement.lang=currentLang;
-document.documentElement.dir=currentLang==="ar"?"rtl":"ltr";
-
-document.querySelectorAll("[data-en]").forEach(el=>{
-el.innerHTML=el.getAttribute("data-"+currentLang);
-});
-
-document.querySelector(".lang").textContent=
-currentLang==="en"?"العربية":"English";
+const items = [
+ {id:1,title:"The Cursed House",type:"novels",genre:"Psychological Horror",year:"2026",rating:"—",icon:"🏚️",art:"linear-gradient(145deg,#705344,#202b3b 58%,#101827)",desc:"A four-part psychological horror and mystery series. Four parts. Four mysteries. One house hiding a truth that should never be remembered.",descAr:"سلسلة من أربعة أجزاء تجمع بين الرعب النفسي والغموض. أربعة أجزاء، أربعة ألغاز، ومنزل يخفي حقيقة لا ينبغي تذكّرها.",status:"Coming Soon"},
+ {id:2,title:"The Last Letter",type:"novels",genre:"Horror Mystery",year:"2026",rating:"—",icon:"✉️",art:"linear-gradient(145deg,#7b6850,#343448 55%,#101827)",desc:"Seventeen years after a disappearance, a letter arrives with a warning that turns a detective's memories into the most dangerous mystery of all.",descAr:"بعد سبعة عشر عاماً على اختفاء غامض، تصل رسالة تحمل تحذيراً يحوّل ذكريات محقق إلى أخطر لغز على الإطلاق.",status:"Coming Soon"},
+ {id:3,title:"Whispers in the Dark",type:"novels",genre:"Dark Fantasy",year:"2026",rating:"—",icon:"🌒",art:"linear-gradient(145deg,#455a70,#17263e 55%,#111421)",desc:"A forgotten kingdom, a voice beneath the earth, and a traveler who discovers that some legends are warnings.",descAr:"مملكة منسية وصوت يأتي من أعماق الأرض ومسافر يكتشف أن بعض الأساطير ليست سوى تحذيرات.",status:"Coming Soon"},
+ {id:4,title:"The Silent Archive",type:"books",genre:"Mystery",year:"2026",rating:"—",icon:"📜",art:"linear-gradient(145deg,#8b704b,#343b48 55%,#121a27)",desc:"A collection of strange cases, hidden histories and unsolved questions from forgotten places.",descAr:"مجموعة من القضايا الغريبة والتواريخ المخفية والأسئلة التي لم تجد إجابات في أماكن منسية.",status:"Coming Soon"},
+ {id:5,title:"Beyond the Ashes",type:"books",genre:"Fantasy",year:"2026",rating:"—",icon:"🔥",art:"linear-gradient(145deg,#a45b3b,#422b38 55%,#121827)",desc:"An illustrated fantasy tale about courage, loss and the price of rebuilding a broken world.",descAr:"حكاية فانتازيا مصورة عن الشجاعة والفقدان وثمن إعادة بناء عالم محطم.",status:"Coming Soon"},
+ {id:6,title:"Midnight Signal",type:"movies",genre:"Thriller",year:"2025",rating:"—",icon:"📡",art:"linear-gradient(145deg,#526c78,#1b3346 55%,#111827)",desc:"A mysterious signal appears every night at exactly midnight. This is a sample catalogue entry; no video is hosted here.",descAr:"تظهر إشارة غامضة كل ليلة عند منتصف الليل تماماً. هذا عنصر تجريبي في الفهرس ولا تتم استضافة الفيديو هنا.",status:"Catalogue"},
+ {id:7,title:"The Hollow Road",type:"series",genre:"Mystery",year:"2025",rating:"—",icon:"🌫️",art:"linear-gradient(145deg,#64716e,#273b42 55%,#111827)",desc:"A small town where every road leads back to the same abandoned station. Sample catalogue entry.",descAr:"بلدة صغيرة يقود كل طريق فيها إلى المحطة المهجورة نفسها. عنصر تجريبي في الفهرس.",status:"Catalogue"},
+ {id:8,title:"Crimson Eclipse",type:"anime",genre:"Action • Fantasy",year:"2026",rating:"—",icon:"🌘",art:"linear-gradient(145deg,#9c4b51,#3e2949 55%,#111827)",desc:"A young warrior searches for the source of an eclipse that erased an entire city. Sample catalogue entry.",descAr:"محارب شاب يبحث عن مصدر كسوف محا مدينة كاملة. عنصر تجريبي في الفهرس.",status:"Catalogue"}
+];
+const labels={books:["E-Books","الكتب الإلكترونية"],novels:["Novels","الروايات"],movies:["Movies","الأفلام"],series:["TV Series","المسلسلات"],anime:["Anime","الأنمي"],favorites:["My Library","مكتبتي"]};
+let lang="en",currentPage="home",lastPage="home",currentItem=null;
+let favorites=JSON.parse(localStorage.getItem("shadowFavorites")||"[]");
+const $=id=>document.getElementById(id);
+function t(en,ar){return lang==="en"?en:ar}
+function coverMarkup(item){return `<div class="cover" style="background:${item.art}"><span class="cover-tag">${item.genre}</span><div class="cover-art">${item.icon}</div><div class="cover-title">${item.title}</div></div>`}
+function cardMarkup(item){return `<article class="media-card" onclick="openDetail(${item.id})">${coverMarkup(item)}<div class="media-info"><h3>${item.title}</h3><div class="meta"><span>${item.year} • ${item.genre}</span><span class="rating">✦ ${item.rating}</span></div></div></article>`}
+function renderFeatured(){$("featuredGrid").innerHTML=items.slice(0,5).map(cardMarkup).join("")}
+function showPage(page){
+ currentPage=page;
+ document.querySelectorAll(".page-view").forEach(el=>el.classList.remove("active"));
+ document.querySelectorAll(".nav-link").forEach(el=>el.classList.toggle("active",el.dataset.page===page));
+ if(page==="home")$("homePage").classList.add("active");
+ else if(page==="settings")$("settingsPage").classList.add("active");
+ else if(page==="detail")$("detailPage").classList.add("active");
+ else{
+  $("listingPage").classList.add("active");
+  let data=page==="favorites"?items.filter(x=>favorites.includes(x.id)):items.filter(x=>x.type===page);
+  $("listingTitle").textContent=labels[page]?.[lang==="en"?0:1]||page;
+  $("listingSubtitle").textContent=page==="favorites"?t("Your saved titles","العناوين التي حفظتها"):t("Explore the collection","استكشف المجموعة");
+  $("listingGrid").innerHTML=data.length?data.map(cardMarkup).join(""):`<div class="empty">${t("Nothing here yet. Add titles to your library using the bookmark button.","لا توجد عناوين هنا بعد. أضف عناوين إلى مكتبتك باستخدام زر الحفظ.")}</div>`;
+ }
+ $("searchInput").value="";
+ closeSidebarIfMobile();
+ window.scrollTo({top:0,behavior:"smooth"});
 }
+function openDetail(id){
+ const item=items.find(x=>x.id===id);if(!item)return;
+ currentItem=item;lastPage=currentPage;
+ $("homePage").classList.remove("active");$("listingPage").classList.remove("active");$("settingsPage").classList.remove("active");
+ $("detailPage").classList.add("active");currentPage="detail";
+ const saved=favorites.includes(id);
+ $("detailContent").innerHTML=`<div class="detail-panel"><div class="detail-cover" style="background:${item.art}">${item.icon}</div><div class="detail-text"><div class="eyebrow">${item.genre.toUpperCase()}</div><h1>${item.title}</h1><div class="meta" style="justify-content:flex-start;gap:18px"><span>${item.year}</span><span>${item.status}</span><span class="rating">✦ ${item.rating}</span></div><div class="pills"><span class="pill">${item.genre}</span><span class="pill">${labels[item.type][lang==="en"?0:1]}</span></div><p>${lang==="en"?item.desc:item.descAr}</p><div class="detail-actions"><button class="primary-btn" onclick="readItem(${id})">${item.type==="novels"||item.type==="books"?t("Open reader","فتح القارئ"):t("View information","عرض المعلومات")}</button><button class="ghost-btn" onclick="toggleFavorite(${id})" id="favoriteBtn">${saved?t("♥ Saved to My Library","♥ محفوظ في مكتبتي"):t("♡ Add to My Library","♡ أضف إلى مكتبتي")}</button></div><p style="font-size:10px;margin-top:22px">${item.type==="movies"||item.type==="series"||item.type==="anime"?t("Viewing note: this is a catalogue interface demo. Playback requires a licensed streaming source.","ملاحظة: هذه واجهة فهرسة تجريبية. المشاهدة تتطلب مصدراً مرخصاً للبث."):t("Reading content will be added when the story is published.","ستتم إضافة محتوى القراءة عند نشر القصة.")}</p></div></div><div id="readerArea"></div>`;
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function goBack(){showPage(lastPage==="detail"?"home":lastPage)}
+function readItem(id){
+ const item=items.find(x=>x.id===id);if(!item)return;
+ const saved=localStorage.getItem("shadowRead_"+id)||"0";
+ $("readerArea").innerHTML=`<div class="reader"><h2>${item.title}</h2><p style="text-align:center;color:#827566">${t("A preview page","صفحة معاينة")}</p><hr style="border:0;border-top:1px solid #d5c9b9"><p>${t("The full story has not been published yet. This reader is ready for the chapters when they are added.","لم تُنشر القصة كاملة بعد. القارئ جاهز لاستقبال الفصول عند إضافتها.")}</p><p>${t("Your reading position is saved in this browser.","يتم حفظ موضع قراءتك في هذا المتصفح.")}</p></div><div class="reader-controls"><button class="ghost-btn" onclick="saveRead(${id},0)">${t("Start reading","ابدأ القراءة")}</button><span class="muted">${t("Saved position:","موضع الحفظ:")} ${saved}</span></div>`;
+ $("readerArea").scrollIntoView({behavior:"smooth"});
+}
+function saveRead(id,pos){localStorage.setItem("shadowRead_"+id,String(pos));toast(t("Reading position saved","تم حفظ موضع القراءة"))}
+function toggleFavorite(id){
+ favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];
+ localStorage.setItem("shadowFavorites",JSON.stringify(favorites));
+ const btn=$("favoriteBtn");if(btn)btn.textContent=favorites.includes(id)?t("♥ Saved to My Library","♥ محفوظ في مكتبتي"):t("♡ Add to My Library","♡ أضف إلى مكتبتي");
+ toast(favorites.includes(id)?t("Added to My Library","تمت الإضافة إلى مكتبتي"):t("Removed from My Library","تمت الإزالة من مكتبتي"));
+}
+function clearFavorites(){favorites=[];localStorage.setItem("shadowFavorites","[]");showPage("favorites");toast(t("Favorites cleared","تم مسح المفضلة"))}
+function toggleLanguage(){
+ lang=lang==="en"?"ar":"en";document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+ $("languageBtn").textContent=lang==="en"?"العربية":"English";
+ document.querySelectorAll("[data-en][data-ar]").forEach(el=>{el.textContent=el.getAttribute("data-"+lang)});
+ $("searchInput").placeholder=$("searchInput").getAttribute("data-placeholder-"+lang);
+ renderFeatured();
+ if(currentPage==="detail"&&currentItem)openDetail(currentItem.id);
+ else if(currentPage!=="home")showPage(currentPage);
+}
+function toggleSidebar(){$("sidebar").classList.toggle("open");$("overlay").classList.toggle("show")}
+function closeSidebarIfMobile(){if(innerWidth<=760){$("sidebar").classList.remove("open");$("overlay").classList.remove("show")}}
+function toast(message){$("toast").textContent=message;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2200)}
+document.querySelectorAll(".nav-link").forEach(btn=>btn.addEventListener("click",()=>showPage(btn.dataset.page)));
+$("searchInput").addEventListener("input",e=>{
+ const q=e.target.value.trim().toLowerCase();if(!q)return;
+ const matches=items.filter(x=>(x.type==="books"||x.type==="novels")&&(x.title.toLowerCase().includes(q)||x.genre.toLowerCase().includes(q)));
+ currentPage="search";document.querySelectorAll(".page-view").forEach(el=>el.classList.remove("active"));$("listingPage").classList.add("active");
+ $("listingTitle").textContent=t("Search results","نتائج البحث");$("listingSubtitle").textContent=t("Books, novels and authors only","الكتب والروايات وأسماء الكتّاب فقط");
+ $("listingGrid").innerHTML=matches.length?matches.map(cardMarkup).join(""):`<div class="empty">${t("No matching books or novels found.","لم يتم العثور على كتب أو روايات مطابقة.")}</div>`;
+});
+renderFeatured();
 </script>
 </body>
 </html>

@@ -217,7 +217,17 @@ let lang="en",currentPage="home",lastPage="home",currentItem=null;
 let favorites=JSON.parse(localStorage.getItem("shadowFavorites")||"[]");
 const $=id=>document.getElementById(id);
 function t(en,ar){return lang==="en"?en:ar}
-function coverMarkup(item){return `<div class="cover" style="background:${item.art}"><span class="cover-tag">${item.genre}</span><div class="cover-art">${item.icon}</div><div class="cover-title">${item.title}</div></div>`}
+function coverMarkup(item){
+let image="";
+if(item.title==="The Cursed House") image="cursed-house.png";
+if(item.title==="The Last Letter") image="last-letter.png";
+
+return `<div class="cover" style="background:${item.art};position:relative;overflow:hidden">
+${image?`<img src="${image}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">`:`<div class="cover-art">${item.icon}</div>`}
+<span class="cover-tag" style="position:relative">${item.genre}</span>
+<div class="cover-title" style="position:relative">${item.title}</div>
+</div>`;
+}
 function cardMarkup(item){return `<article class="media-card" onclick="openDetail(${item.id})">${coverMarkup(item)}<div class="media-info"><h3>${item.title}</h3><div class="meta"><span>${item.year} • ${item.genre}</span><span class="rating">✦ ${item.rating}</span></div></div></article>`}
 function renderFeatured(){$("featuredGrid").innerHTML=items.slice(0,5).map(cardMarkup).join("")}
 function showPage(page){

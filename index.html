@@ -1,298 +1,300 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101a2b">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0B1224">
 <title>Shadow Library</title>
 <style>
+/* Shadow Library identity: deep blue and violet. Shared variables style every page. */
 :root{
-  --bg:#101a2b; --surface:#18263a; --surface2:#20334b; --surface3:#293f59;
-  --accent:#e8a65a; --accent2:#f4c17e; --text:#f4f6fb; --muted:#aab8ca;
-  --line:rgba(255,255,255,.09); --shadow:0 18px 45px rgba(0,0,0,.25);
+  --bg:#0B1224; --panel:#151F38; --panel2:#202D4B; --panel3:#2B3B60;
+  --accent:#9B8CFF; --accent2:#C1B5FF; --text:#FFFFFF; --muted:#B9C6D5;
+  --line:#354264; --success:#8ED6B0; --danger:#E78A8A;
+  --shadow:0 18px 55px rgba(0,0,0,.28); --radius:18px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
 button,input{font:inherit}
 button{cursor:pointer}
 a{color:inherit;text-decoration:none}
-.app{display:flex;min-height:100vh}
-.sidebar{width:250px;flex:0 0 250px;background:#0c1422;border-right:1px solid var(--line);padding:25px 17px;position:fixed;inset:0 auto 0 0;z-index:30;display:flex;flex-direction:column;transition:transform .25s}
-.brand{display:flex;align-items:center;gap:11px;padding:4px 9px 30px}
-.brand-mark{width:39px;height:39px;border-radius:12px;background:linear-gradient(145deg,var(--accent2),#a9692d);display:grid;place-items:center;color:#1a2230;font-size:22px;font-weight:900;box-shadow:0 7px 20px #e8a65a33}
-.brand-name{font-size:16px;font-weight:800;letter-spacing:1.4px}
-.brand-sub{font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:4px}
-.nav-label{font-size:10px;letter-spacing:1.8px;color:#718198;padding:15px 12px 9px}
-.nav-link{width:100%;border:0;background:transparent;color:#aebbd0;padding:12px 13px;border-radius:10px;display:flex;align-items:center;gap:13px;text-align:left;font-size:13px;margin:2px 0;transition:.2s}
-.nav-link .ico{width:20px;text-align:center;font-size:16px}
-.nav-link:hover,.nav-link.active{background:linear-gradient(90deg,#e8a65a22,transparent);color:var(--accent2)}
-.sidebar-bottom{margin-top:auto;padding:14px 12px;color:#718198;font-size:11px;line-height:1.7}
-.main{margin-left:250px;width:calc(100% - 250px);min-width:0}
-.topbar{height:76px;padding:0 4.5%;display:flex;align-items:center;gap:18px;border-bottom:1px solid var(--line);background:#101a2beF;position:sticky;top:0;z-index:20;backdrop-filter:blur(14px)}
-.menu-btn{display:none}
-.search-wrap{position:relative;max-width:460px;flex:1}
-.search-wrap span{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#91a0b5}
-.search{width:100%;background:#1a2a40;border:1px solid var(--line);border-radius:12px;padding:12px 15px 12px 42px;color:var(--text);outline:none;font-size:13px}
-.search:focus{border-color:#e8a65a88;box-shadow:0 0 0 3px #e8a65a12}
-.top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
-.ghost-btn{border:1px solid var(--line);background:#1a2a40;color:var(--text);padding:10px 13px;border-radius:10px;font-size:12px}
-.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#e8a65a,#9d6736);color:#17202c;font-weight:800}
-.content{padding:28px 4.5% 55px;max-width:1500px;margin:auto}
-.hero{min-height:330px;border-radius:22px;overflow:hidden;position:relative;padding:48px;display:flex;align-items:center;background:radial-gradient(ellipse at 78% 35%,#52617b 0%,transparent 33%),linear-gradient(110deg,#1d3048 0%,#17263b 48%,#332c31 100%);box-shadow:var(--shadow);border:1px solid #ffffff12}
-.hero:before{content:"";position:absolute;width:330px;height:430px;right:12%;top:-40px;transform:rotate(14deg);border-radius:48% 48% 12px 12px;background:linear-gradient(145deg,#d49b61,#593f3d 45%,#172337 80%);opacity:.25;filter:blur(1px)}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,23,37,.15),rgba(13,23,37,.1) 55%,rgba(13,23,37,.65))}
-.hero-copy{position:relative;z-index:2;max-width:560px}
-.eyebrow{color:var(--accent2);font-size:10px;letter-spacing:3px;font-weight:800}
-.hero h1{font-size:clamp(30px,4vw,48px);line-height:1.08;margin:16px 0 13px;max-width:540px}
-.hero p{color:#c1cada;line-height:1.8;font-size:13px;max-width:480px;margin:0}
-.hero-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:24px}
-.primary-btn{background:var(--accent);color:#1a2431;border:0;border-radius:9px;padding:12px 18px;font-size:12px;font-weight:800}
-.secondary-btn{background:#ffffff12;color:white;border:1px solid #ffffff2b;border-radius:9px;padding:12px 18px;font-size:12px}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:34px 0 17px}
-.section-head h2{font-size:19px;margin:0}
-.section-head p{color:var(--muted);font-size:11px;margin:6px 0 0}
-.view-all{color:var(--accent2);font-size:11px;background:none;border:0}
-.category-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
-.category-card{border:1px solid var(--line);background:linear-gradient(145deg,#243951,#17263a);border-radius:13px;padding:18px 12px;min-height:93px;text-align:left;color:var(--text);transition:.2s}
-.category-card:hover{transform:translateY(-3px);border-color:#e8a65a66}
-.category-icon{font-size:21px;display:block;margin-bottom:10px}
-.category-name{font-size:12px;font-weight:700}
-.card-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
-.media-card{min-width:0;cursor:pointer}
-.cover{height:220px;border-radius:13px;overflow:hidden;position:relative;display:flex;align-items:end;padding:16px;border:1px solid #ffffff14;box-shadow:0 10px 25px #0003;transition:.25s}
-.media-card:hover .cover{transform:translateY(-5px);box-shadow:0 18px 35px #0005}
-.cover:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(5,10,18,.82) 100%)}
-.cover-title{position:relative;z-index:1;font-family:Georgia,serif;font-size:23px;line-height:1.05;font-weight:bold;text-shadow:0 2px 10px #000}
-.cover-tag{position:absolute;top:12px;left:12px;z-index:2;background:#0b1424b8;border:1px solid #ffffff2b;border-radius:20px;padding:5px 8px;font-size:9px;color:#f6d4a6}
-.cover-art{position:absolute;inset:0;display:grid;place-items:center;font-size:65px;opacity:.75;text-shadow:0 10px 35px #0008}
-.cover-art:after{content:"";position:absolute;width:70%;height:70%;border:1px solid #ffffff30;border-radius:50%;transform:rotate(-25deg) scaleY(.55)}
-.media-info{padding:10px 2px}
-.media-info h3{font-size:12px;margin:0 0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta{font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
-.rating{color:var(--accent2)}
-.empty{padding:35px;text-align:center;color:var(--muted);background:var(--surface);border-radius:13px;grid-column:1/-1;font-size:13px}
-.page-view{display:none}
-.page-view.active{display:block}
-.detail-panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:25px;display:grid;grid-template-columns:210px 1fr;gap:25px}
-.detail-cover{min-height:285px;border-radius:13px;display:grid;place-items:center;font-size:70px;background:linear-gradient(145deg,#53637a,#17283e 65%,#a06b47)}
-.detail-text h1{margin:5px 0 10px;font-size:28px}
-.detail-text p{color:var(--muted);line-height:1.8;font-size:13px;max-width:720px}
-.pills{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0}
-.pill{border:1px solid var(--line);color:#c5d0df;padding:6px 9px;border-radius:30px;font-size:10px}
-.detail-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
-.reader{background:#f1eadf;color:#27231f;border-radius:13px;padding:30px;max-width:800px;margin:22px auto;line-height:2;font-family:Georgia,serif}
-.reader h2{text-align:center;color:#493b30}
-.reader-controls{display:flex;justify-content:space-between;gap:10px;max-width:800px;margin:auto}
-.footer{border-top:1px solid var(--line);padding:25px 4.5%;color:#728198;font-size:10px;display:flex;justify-content:space-between;gap:15px}
-.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:#e8a65a;color:#17202c;padding:11px 17px;border-radius:9px;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:60}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.overlay{display:none}
-[dir="rtl"] .sidebar{left:auto;right:0;border-right:0;border-left:1px solid var(--line)}
-[dir="rtl"] .main{margin-left:0;margin-right:250px}
-[dir="rtl"] .search-wrap span{left:auto;right:15px}
-[dir="rtl"] .search{padding:12px 42px 12px 15px}
-[dir="rtl"] .nav-link{text-align:right}
-[dir="rtl"] .top-actions{margin-left:0;margin-right:auto}
-[dir="rtl"] .hero:before{right:auto;left:12%}
-[dir="rtl"] .hero:after{transform:scaleX(-1)}
-[dir="rtl"] .cover-tag{left:auto;right:12px}
-@media(max-width:1100px){.card-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:760px){
- .sidebar{transform:translateX(-100%);width:270px}
- [dir="rtl"] .sidebar{transform:translateX(100%)}
- .sidebar.open{transform:translateX(0)}
- .main,[dir="rtl"] .main{margin:0;width:100%}
- .menu-btn{display:block}
- .topbar{height:65px;padding:0 15px;gap:10px}
- .content{padding:18px 15px 40px}
- .hero{min-height:330px;padding:28px 23px}
- .hero:before{right:-35px;opacity:.18}
- .card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
- .cover{height:205px}
- .category-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
- .category-card{padding:13px 9px;min-height:84px}
- .section-head{margin-top:27px}
- .detail-panel{grid-template-columns:1fr;padding:17px}
- .detail-cover{min-height:190px}
- .footer{padding:20px 15px;flex-direction:column}
- .overlay{position:fixed;inset:0;background:#0009;z-index:25}
- .overlay.show{display:block}
- .search-wrap{max-width:none}
- .top-actions .avatar{display:none}
+.topbar{height:72px;position:sticky;top:0;z-index:30;background:rgba(11,18,36,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1250px;height:100%;margin:auto;padding:0 22px;display:flex;align-items:center;gap:16px}
+.icon-btn{width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font-size:22px;display:grid;place-items:center}
+.brand{font-weight:950;letter-spacing:2px;font-size:21px;white-space:nowrap}
+.brand span{color:var(--accent)}
+.top-spacer{flex:1}
+.header-search{width:min(360px,42vw);position:relative}
+.header-search input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 42px 11px 14px;color:var(--text);outline:none}
+.header-search input:focus{border-color:var(--accent)}
+.header-search:after{content:"⌕";position:absolute;right:14px;top:3px;font-size:25px;color:var(--accent)}
+.lang-btn{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 12px;border-radius:11px}
+.shell{max-width:1250px;margin:auto;padding:26px 22px 70px}
+.hero{min-height:330px;border:1px solid var(--line);border-radius:24px;overflow:hidden;position:relative;display:flex;align-items:center;padding:clamp(25px,5vw,58px);background:
+ linear-gradient(90deg,rgba(11,18,36,.98) 0%,rgba(11,18,36,.88) 48%,rgba(11,18,36,.18) 100%),
+ radial-gradient(circle at 82% 38%,#8067D9 0%,#42476B 19%,#202D4B 45%,#0B1224 76%);
+ box-shadow:var(--shadow)}
+.hero:after{content:"";position:absolute;right:7%;top:12%;width:250px;height:250px;border:1px solid rgba(155,140,255,.28);border-radius:50%;box-shadow:0 0 0 24px rgba(155,140,255,.035),0 0 0 50px rgba(155,140,255,.025)}
+.hero-content{position:relative;z-index:1;max-width:610px}
+.eyebrow{color:var(--accent);font-size:11px;font-weight:850;letter-spacing:3px;text-transform:uppercase}
+h1{font-size:clamp(36px,6vw,65px);line-height:1.04;margin:13px 0 16px;letter-spacing:-1.5px}
+.hero p{color:var(--muted);max-width:520px;margin:0}
+.actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:24px}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:11px 17px;border-radius:12px;font-weight:750}
+.btn:hover,.icon-btn:hover{border-color:var(--accent)}
+.btn.primary{background:linear-gradient(110deg,#8B75F0,#B6A7FF);color:#11172B;border:0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:34px 0 15px}
+.section-head h2{font-size:23px;margin:0}
+.section-head p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.text-link{color:var(--accent);font-weight:750;background:none;border:0}
+.quick-cats{display:grid;grid-template-columns:repeat(5,1fr);gap:13px;margin-top:25px}
+.cat-card{min-height:105px;border:1px solid var(--line);border-radius:16px;padding:17px;background:linear-gradient(145deg,var(--panel2),var(--panel));display:flex;flex-direction:column;justify-content:space-between;transition:.2s}
+.cat-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.cat-icon{font-size:25px;color:var(--accent)}
+.cat-card strong{font-size:14px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 18px}
+.filter{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px 14px;font-size:13px}
+.filter.active{background:rgba(155,140,255,.16);border-color:var(--accent);color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.item-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s;min-width:0}
+.item-card:hover{transform:translateY(-4px);border-color:rgba(155,140,255,.65);box-shadow:var(--shadow)}
+.poster{height:220px;padding:15px;display:flex;align-items:end;position:relative;overflow:hidden;background:linear-gradient(145deg,#35466F,#0B1224 65%)}
+.poster:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 20%,rgba(155,140,255,.42),transparent 36%),linear-gradient(0deg,rgba(0,0,0,.72),transparent 72%)}
+.poster .poster-title{position:relative;z-index:1;font:800 21px/1.1 Georgia,serif;text-shadow:0 3px 12px #000;max-width:90%}
+.poster.book-a{background:linear-gradient(145deg,#4E416F,#182440 72%)}
+.poster.book-b{background:linear-gradient(145deg,#314C78,#0B1224 72%)}
+.poster.book-c{background:linear-gradient(145deg,#514A7C,#182440 72%)}
+.poster.movie-a{background:linear-gradient(145deg,#55416F,#0B1224 72%)}
+.poster.movie-b{background:linear-gradient(145deg,#39466F,#0B1224 72%)}
+.poster.series-a{background:linear-gradient(145deg,#54466F,#0B1224 72%)}
+.poster.anime-a{background:linear-gradient(145deg,#334C78,#0B1224 72%)}
+.card-body{padding:14px}
+.card-kicker{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);font-weight:850}
+.card-body h3{font-size:16px;margin:5px 0 5px}
+.card-body p{font-size:12px;color:var(--muted);margin:0;min-height:39px}
+.card-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px}
+.small-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:7px 10px;font-size:12px;font-weight:700}
+.small-btn:hover{border-color:var(--accent);color:var(--accent)}
+.rating{font-size:12px;color:var(--accent)}
+.empty{grid-column:1/-1;border:1px dashed var(--line);border-radius:15px;padding:28px;text-align:center;color:var(--muted)}
+.page{display:none}.page.active{display:block}
+.side-overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:49;opacity:0;pointer-events:none;transition:.2s}
+.sidebar{position:fixed;z-index:50;top:0;left:0;bottom:0;width:min(320px,86vw);background:#141F3A;border-right:1px solid var(--line);padding:22px;transform:translateX(-105%);transition:.25s;box-shadow:var(--shadow)}
+.sidebar.open{transform:translateX(0)}.side-overlay.open{opacity:1;pointer-events:auto}
+.side-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:25px}
+.side-nav{display:grid;gap:8px}
+.side-nav button{border:1px solid transparent;background:transparent;color:var(--muted);padding:12px 13px;border-radius:11px;text-align:left;font-weight:700}
+.side-nav button:hover,.side-nav button.active{background:var(--panel2);color:var(--accent);border-color:var(--line)}
+.side-label{font-size:10px;letter-spacing:2px;color:#8995B8;margin:22px 0 7px}
+.detail-wrap{max-width:950px;margin:20px auto;background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.detail-hero{padding:30px;background:linear-gradient(110deg,#0B1224,#2B3B60);display:grid;grid-template-columns:190px 1fr;gap:25px;align-items:center}
+.detail-cover{height:245px;border-radius:13px;background:linear-gradient(145deg,#6D5AA8,#202D4B 65%);display:flex;align-items:end;padding:17px;font:800 23px Georgia,serif;box-shadow:var(--shadow)}
+.detail-info h1{font-size:34px;margin:8px 0}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}
+.pill{font-size:11px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.detail-content{padding:25px 30px}
+.detail-content h3{margin:22px 0 8px}
+.detail-content p{color:var(--muted)}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.info-row{background:var(--panel2);border-radius:10px;padding:11px 13px}
+.info-row span{display:block;color:var(--muted);font-size:11px}
+.info-row strong{font-size:13px}
+.chapter-list{display:grid;gap:8px;margin-top:12px}
+.chapter-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel2);padding:12px 14px;border-radius:10px}
+.reader-box{max-width:760px;margin:20px auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,5vw,45px)}
+.reader-box h1{font-size:34px}
+.reader-text{font-family:Georgia,serif;font-size:18px;line-height:2;color:#E4E8ED}
+.progress-track{height:6px;background:var(--panel3);border-radius:99px;overflow:hidden;margin:12px 0}
+.progress-fill{height:100%;width:0;background:var(--accent)}
+.notice{padding:14px;border:1px solid rgba(155,140,255,.35);background:rgba(155,140,255,.08);border-radius:12px;color:var(--muted);font-size:13px;margin-top:18px}
+footer{border-top:1px solid var(--line);padding:25px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.quick-cats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){
+ .topbar{height:64px}.topbar-inner{padding:0 13px;gap:10px}.brand{font-size:17px}.header-search{width:auto;flex:1}.header-search input{padding:9px 34px 9px 10px;font-size:12px}.lang-btn{display:none}
+ .shell{padding:16px 13px 85px}.hero{min-height:300px;padding:25px 20px}.hero:after{right:-90px;top:35px;width:210px;height:210px}h1{font-size:39px}
+ .quick-cats{grid-template-columns:repeat(2,1fr);gap:9px}.cat-card{min-height:90px;padding:13px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.poster{height:180px}.poster .poster-title{font-size:17px}.card-body{padding:11px}.card-body h3{font-size:14px}.card-body p{font-size:11px}
+ .section-head h2{font-size:20px}.detail-hero{grid-template-columns:105px 1fr;padding:17px;gap:15px}.detail-cover{height:150px;font-size:15px}.detail-info h1{font-size:24px}.detail-content{padding:18px}.info-grid{grid-template-columns:1fr 1fr}
 }
-@media(max-width:390px){.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:29px}.search{font-size:11px}}
 </style>
 </head>
 <body>
-<div class="app">
-<aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="brand-mark">S</div><div><div class="brand-name">SHADOW LIBRARY</div><div class="brand-sub">A WORLD OF STORIES</div></div></div>
-  <div class="nav-label" data-en="DISCOVER" data-ar="اكتشف">DISCOVER</div>
-  <button class="nav-link active" data-page="home"><span class="ico">⌂</span><span data-en="Home" data-ar="الرئيسية">Home</span></button>
-  <button class="nav-link" data-page="books"><span class="ico">▤</span><span data-en="E-Books" data-ar="الكتب الإلكترونية">E-Books</span></button>
-  <button class="nav-link" data-page="novels"><span class="ico">✧</span><span data-en="Novels" data-ar="الروايات">Novels</span></button>
-  <button class="nav-link" data-page="movies"><span class="ico">▣</span><span data-en="Movies" data-ar="الأفلام">Movies</span></button>
-  <button class="nav-link" data-page="series"><span class="ico">▤</span><span data-en="TV Series" data-ar="المسلسلات">TV Series</span></button>
-  <button class="nav-link" data-page="anime"><span class="ico">✦</span><span data-en="Anime" data-ar="الأنمي">Anime</span></button>
-  <div class="nav-label" data-en="YOUR SPACE" data-ar="مساحتك">YOUR SPACE</div>
-  <button class="nav-link" data-page="favorites"><span class="ico">♡</span><span data-en="My Library" data-ar="مكتبتي">My Library</span></button>
-  <button class="nav-link" data-page="settings"><span class="ico">⚙</span><span data-en="Settings" data-ar="الإعدادات">Settings</span></button>
-  <div class="sidebar-bottom">SHADOW LIBRARY © 2026<br><span data-en="Stories beyond imagination." data-ar="قصص تتجاوز حدود الخيال.">Stories beyond imagination.</span></div>
-</aside>
-<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
-
-<div class="main">
 <header class="topbar">
-  <button class="ghost-btn menu-btn" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
-  <div class="search-wrap"><span>⌕</span><input class="search" id="searchInput" type="search" placeholder="Search books, novels or authors..." data-placeholder-en="Search books, novels or authors..." data-placeholder-ar="ابحث عن كتاب أو رواية أو كاتب..."></div>
-  <div class="top-actions">
-    <button class="ghost-btn" onclick="toggleLanguage()" id="languageBtn">العربية</button>
-    <div class="avatar">S</div>
-  </div>
+ <div class="topbar-inner">
+  <button class="icon-btn" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+  <a class="brand" href="#" onclick="go('home');return false">SHADOW <span>LIBRARY</span></a>
+  <div class="top-spacer"></div>
+  <label class="header-search"><input id="searchBox" type="search" placeholder="Search books, novels, authors…" oninput="searchBooks(this.value)" aria-label="Search books and novels"></label>
+  <button class="lang-btn" onclick="toggleLanguage()">العربية</button>
+ </div>
 </header>
 
-<div class="content">
-  <div id="homePage" class="page-view active">
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow" data-en="YOUR NEXT WORLD IS WAITING" data-ar="عالمك القادم بانتظارك">YOUR NEXT WORLD IS WAITING</div>
-        <h1 data-en="Enter a world beyond imagination." data-ar="ادخل عالماً يتجاوز حدود الخيال.">Enter a world beyond imagination.</h1>
-        <p data-en="Discover unforgettable stories, explore mysterious worlds, and find your next favorite read or watch — all in one place." data-ar="اكتشف قصصاً لا تُنسى، واستكشف عوالم غامضة، واعثر على قراءتك أو مشاهدتك القادمة في مكان واحد.">Discover unforgettable stories, explore mysterious worlds, and find your next favorite read or watch — all in one place.</p>
-        <div class="hero-actions"><button class="primary-btn" onclick="showPage('novels')" data-en="Explore Stories →" data-ar="اكتشف القصص ←">Explore Stories →</button><button class="secondary-btn" onclick="showPage('books')" data-en="Browse Library" data-ar="تصفح المكتبة">Browse Library</button></div>
-      </div>
-    </section>
-    <div class="section-head"><div><h2 data-en="Explore Categories" data-ar="استكشف التصنيفات">Explore Categories</h2><p data-en="Choose the world you want to enter" data-ar="اختر العالم الذي تريد دخوله">Choose the world you want to enter</p></div></div>
-    <div class="category-grid">
-      <button class="category-card" onclick="showPage('novels')"><span class="category-icon">📖</span><span class="category-name" data-en="Novels" data-ar="الروايات">Novels</span></button>
-      <button class="category-card" onclick="showPage('books')"><span class="category-icon">📚</span><span class="category-name" data-en="E-Books" data-ar="الكتب الإلكترونية">E-Books</span></button>
-      <button class="category-card" onclick="showPage('movies')"><span class="category-icon">🎬</span><span class="category-name" data-en="Movies" data-ar="الأفلام">Movies</span></button>
-      <button class="category-card" onclick="showPage('series')"><span class="category-icon">📺</span><span class="category-name" data-en="TV Series" data-ar="المسلسلات">TV Series</span></button>
-      <button class="category-card" onclick="showPage('anime')"><span class="category-icon">⚔️</span><span class="category-name" data-en="Anime" data-ar="الأنمي">Anime</span></button>
-      <button class="category-card" onclick="showPage('favorites')"><span class="category-icon">♡</span><span class="category-name" data-en="My Library" data-ar="مكتبتي">My Library</span></button>
-    </div>
-    <div class="section-head"><div><h2 data-en="Featured Stories" data-ar="قصص مميزة">Featured Stories</h2><p data-en="Handpicked worlds to begin your journey" data-ar="عوالم مختارة لتبدأ رحلتك">Handpicked worlds to begin your journey</p></div><button class="view-all" onclick="showPage('novels')" data-en="View all →" data-ar="عرض الكل ←">View all →</button></div>
-    <div class="card-grid" id="featuredGrid"></div>
-  </div>
+<div class="side-overlay" id="overlay" onclick="toggleMenu()"></div>
+<aside class="sidebar" id="sidebar">
+ <div class="side-head"><div class="brand">SHADOW <span>LIBRARY</span></div><button class="icon-btn" onclick="toggleMenu()">×</button></div>
+ <div class="side-label">DISCOVER</div>
+ <nav class="side-nav">
+  <button class="active" data-page="home" onclick="go('home')">⌂ &nbsp; Home</button>
+  <button data-page="books" onclick="go('books')">▤ &nbsp; E-books</button>
+  <button data-page="novels" onclick="go('novels')">▣ &nbsp; Novels</button>
+  <button data-page="movies" onclick="go('movies')">▻ &nbsp; Movies</button>
+  <button data-page="series" onclick="go('series')">▤ &nbsp; Series</button>
+  <button data-page="anime" onclick="go('anime')">✦ &nbsp; Anime</button>
+ </nav>
+ <div class="side-label">YOUR LIBRARY</div>
+ <nav class="side-nav">
+  <button onclick="go('saved')">♡ &nbsp; My favorites</button>
+  <button onclick="go('saved')">▣ &nbsp; My library</button>
+ </nav>
+ <div class="notice">Reading and watch progress features can be expanded as accounts and licensed media sources are connected.</div>
+</aside>
 
-  <div id="listingPage" class="page-view">
-    <div class="section-head"><div><h2 id="listingTitle">Novels</h2><p id="listingSubtitle">Explore the collection</p></div></div>
-    <div class="card-grid" id="listingGrid"></div>
+<main class="shell">
+ <section class="page active" id="page-home">
+  <section class="hero">
+   <div class="hero-content">
+    <div class="eyebrow">A WORLD BEYOND THE ORDINARY</div>
+    <h1>Discover your<br>next world.</h1>
+    <p>Explore stories worth getting lost in — from unforgettable novels to movies, series and anime.</p>
+    <div class="actions"><button class="btn primary" onclick="go('books')">Explore library</button><button class="btn" onclick="go('anime')">Explore anime</button></div>
+   </div>
+  </section>
+  <div class="quick-cats">
+   <button class="cat-card" onclick="go('books')"><span class="cat-icon">▤</span><strong>Books & E-books</strong></button>
+   <button class="cat-card" onclick="go('novels')"><span class="cat-icon">▣</span><strong>Novels</strong></button>
+   <button class="cat-card" onclick="go('movies')"><span class="cat-icon">▶</span><strong>Movies</strong></button>
+   <button class="cat-card" onclick="go('series')"><span class="cat-icon">▥</span><strong>TV Series</strong></button>
+   <button class="cat-card" onclick="go('anime')"><span class="cat-icon">✦</span><strong>Anime</strong></button>
   </div>
+  <div class="section-head"><div><h2>Featured stories</h2><p>Explore selected books and original novels.</p></div><button class="text-link" onclick="go('novels')">View all →</button></div>
+  <div class="grid" id="homeBooks"></div>
+  <div class="section-head"><div><h2>Explore entertainment</h2><p>Discover movies, series and anime.</p></div></div>
+  <div class="grid" id="homeMedia"></div>
+ </section>
 
-  <div id="detailPage" class="page-view">
-    <button class="ghost-btn" onclick="goBack()" style="margin-bottom:17px" data-en="← Back to library" data-ar="→ العودة إلى المكتبة">← Back to library</button>
-    <div id="detailContent"></div>
-  </div>
+ <section class="page" id="page-books">
+  <div class="section-head"><div><div class="eyebrow">THE READING ROOM</div><h2>Books & E-books</h2><p>Search by title, author or genre.</p></div></div>
+  <div class="filters" id="bookFilters"><button class="filter active" data-filter="all">All books</button><button class="filter" data-filter="horror">Horror</button><button class="filter" data-filter="mystery">Mystery</button><button class="filter" data-filter="fantasy">Fantasy</button><button class="filter" data-filter="adventure">Adventure</button></div>
+  <div class="grid" id="booksGrid"></div>
+ </section>
+ <section class="page" id="page-novels">
+  <div class="section-head"><div><div class="eyebrow">ORIGINAL WORLDS</div><h2>Novels</h2><p>Open a novel to explore its story, details and chapters.</p></div></div>
+  <div class="filters" id="novelFilters"><button class="filter active" data-filter="all">All novels</button><button class="filter" data-filter="horror">Horror</button><button class="filter" data-filter="mystery">Mystery</button><button class="filter" data-filter="fantasy">Fantasy</button></div>
+  <div class="grid" id="novelsGrid"></div>
+ </section>
+ <section class="page" id="page-movies"><div class="section-head"><div><div class="eyebrow">CINEMA</div><h2>Movies</h2><p>Explore film stories, genres, cast and production details.</p></div></div><div class="grid" id="moviesGrid"></div></section>
+ <section class="page" id="page-series"><div class="section-head"><div><div class="eyebrow">ON THE SMALL SCREEN</div><h2>TV Series</h2><p>Explore series, seasons, episodes and cast information.</p></div></div><div class="grid" id="seriesGrid"></div></section>
+ <section class="page" id="page-anime"><div class="section-head"><div><div class="eyebrow">ANIMATION WORLDS</div><h2>Anime</h2><p>Explore anime stories, studios, genres and episodes.</p></div></div><div class="grid" id="animeGrid"></div></section>
+ <section class="page" id="page-saved"><div class="section-head"><div><div class="eyebrow">YOUR COLLECTION</div><h2>My favorites</h2><p>Your saved titles will appear here on this device.</p></div></div><div class="grid" id="savedGrid"></div></section>
+ <section class="page" id="page-detail"><div id="detailMount"></div></section>
+ <section class="page" id="page-reader"><div id="readerMount"></div></section>
+</main>
 
-  <div id="settingsPage" class="page-view">
-    <div class="section-head"><div><h2 data-en="Settings" data-ar="الإعدادات">Settings</h2><p data-en="Personalize your library experience" data-ar="خصص تجربة مكتبتك">Personalize your library experience</p></div></div>
-    <div class="detail-panel" style="display:block">
-      <h3 data-en="Language" data-ar="اللغة">Language</h3><p class="muted" data-en="Choose the interface language." data-ar="اختر لغة واجهة الموقع.">Choose the interface language.</p>
-      <button class="primary-btn" onclick="toggleLanguage()" data-en="Switch to Arabic / English" data-ar="التبديل بين العربية والإنجليزية">Switch to Arabic / English</button>
-      <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
-      <h3 data-en="Your data" data-ar="بياناتك">Your data</h3><p class="muted" data-en="Your favorites and reading position are saved in this browser on this device." data-ar="يتم حفظ مفضلاتك وموضع القراءة في هذا المتصفح على هذا الجهاز.">Your favorites and reading position are saved in this browser on this device.</p>
-      <button class="ghost-btn" onclick="clearFavorites()" data-en="Clear my favorites" data-ar="مسح المفضلة">Clear my favorites</button>
-    </div>
-  </div>
-</div>
-<footer class="footer"><span>SHADOW LIBRARY © 2026</span><span data-en="Every story hides a secret." data-ar="خلف كل قصة سر.">Every story hides a secret.</span></footer>
-</div>
-</div>
-<div class="toast" id="toast"></div>
+<footer>© 2026 Shadow Library · Stories, knowledge and entertainment.</footer>
 
 <script>
-const items = [
- {id:1,title:"The Cursed House",type:"novels",genre:"Psychological Horror",year:"2026",rating:"—",icon:"🏚️",art:"linear-gradient(145deg,#705344,#202b3b 58%,#101827)",desc:"A four-part psychological horror and mystery series. Four parts. Four mysteries. One house hiding a truth that should never be remembered.",descAr:"سلسلة من أربعة أجزاء تجمع بين الرعب النفسي والغموض. أربعة أجزاء، أربعة ألغاز، ومنزل يخفي حقيقة لا ينبغي تذكّرها.",status:"Coming Soon"},
- {id:2,title:"The Last Letter",type:"novels",genre:"Horror Mystery",year:"2026",rating:"—",icon:"✉️",art:"linear-gradient(145deg,#7b6850,#343448 55%,#101827)",desc:"Seventeen years after a disappearance, a letter arrives with a warning that turns a detective's memories into the most dangerous mystery of all.",descAr:"بعد سبعة عشر عاماً على اختفاء غامض، تصل رسالة تحمل تحذيراً يحوّل ذكريات محقق إلى أخطر لغز على الإطلاق.",status:"Coming Soon"},
- {id:3,title:"Whispers in the Dark",type:"novels",genre:"Dark Fantasy",year:"2026",rating:"—",icon:"🌒",art:"linear-gradient(145deg,#455a70,#17263e 55%,#111421)",desc:"A forgotten kingdom, a voice beneath the earth, and a traveler who discovers that some legends are warnings.",descAr:"مملكة منسية وصوت يأتي من أعماق الأرض ومسافر يكتشف أن بعض الأساطير ليست سوى تحذيرات.",status:"Coming Soon"},
- {id:4,title:"The Silent Archive",type:"books",genre:"Mystery",year:"2026",rating:"—",icon:"📜",art:"linear-gradient(145deg,#8b704b,#343b48 55%,#121a27)",desc:"A collection of strange cases, hidden histories and unsolved questions from forgotten places.",descAr:"مجموعة من القضايا الغريبة والتواريخ المخفية والأسئلة التي لم تجد إجابات في أماكن منسية.",status:"Coming Soon"},
- {id:5,title:"Beyond the Ashes",type:"books",genre:"Fantasy",year:"2026",rating:"—",icon:"🔥",art:"linear-gradient(145deg,#a45b3b,#422b38 55%,#121827)",desc:"An illustrated fantasy tale about courage, loss and the price of rebuilding a broken world.",descAr:"حكاية فانتازيا مصورة عن الشجاعة والفقدان وثمن إعادة بناء عالم محطم.",status:"Coming Soon"},
- {id:6,title:"Midnight Signal",type:"movies",genre:"Thriller",year:"2025",rating:"—",icon:"📡",art:"linear-gradient(145deg,#526c78,#1b3346 55%,#111827)",desc:"A mysterious signal appears every night at exactly midnight. This is a sample catalogue entry; no video is hosted here.",descAr:"تظهر إشارة غامضة كل ليلة عند منتصف الليل تماماً. هذا عنصر تجريبي في الفهرس ولا تتم استضافة الفيديو هنا.",status:"Catalogue"},
- {id:7,title:"The Hollow Road",type:"series",genre:"Mystery",year:"2025",rating:"—",icon:"🌫️",art:"linear-gradient(145deg,#64716e,#273b42 55%,#111827)",desc:"A small town where every road leads back to the same abandoned station. Sample catalogue entry.",descAr:"بلدة صغيرة يقود كل طريق فيها إلى المحطة المهجورة نفسها. عنصر تجريبي في الفهرس.",status:"Catalogue"},
- {id:8,title:"Crimson Eclipse",type:"anime",genre:"Action • Fantasy",year:"2026",rating:"—",icon:"🌘",art:"linear-gradient(145deg,#9c4b51,#3e2949 55%,#111827)",desc:"A young warrior searches for the source of an eclipse that erased an entire city. Sample catalogue entry.",descAr:"محارب شاب يبحث عن مصدر كسوف محا مدينة كاملة. عنصر تجريبي في الفهرس.",status:"Catalogue"}
+const catalog = [
+ {id:'cursed-house',title:'The Cursed House',type:'novel',genre:['horror','mystery'],tag:'Horror · Mystery',desc:'A forgotten home. A family erased from memory. A truth that refuses to stay buried.',author:'Shadow Library',year:'2026',cover:'book-a',chapters:['The First Memory','The Girl Who Remembered','The Room Behind the Wall','The House Remembers'],synopsis:'When a young man inherits a key connected to the night his parents died, he returns to a house where every clock stopped at the same moment. The deeper he searches, the less certain he becomes that his memories belong to him.',rating:'—',format:'Digital novel',price:'Sample available'},
+ {id:'crystal-throne',title:'The Crystal Throne',type:'novel',genre:['fantasy','adventure'],tag:'Epic Fantasy',desc:'An exiled heir discovers that the kingdom’s magic has a terrible price.',author:'Shadow Library',year:'2026',cover:'book-b',chapters:['The Exile','A Crown of Glass','The Price of Magic'],synopsis:'An exiled heir returns to a fractured kingdom and discovers that its legendary magic is sustained by a secret no ruler has survived revealing.',rating:'—',format:'Digital novel',price:'Sample available'},
+ {id:'reborn-world',title:'Re:Born in Another World',type:'novel',genre:['fantasy','adventure'],tag:'Isekai · Fantasy',desc:'One unexpected death. One unfamiliar world. A second chance with hidden rules.',author:'Shadow Library',year:'2026',cover:'book-c',chapters:['The Last Breath','The New Rules','A Stranger’s Gift'],synopsis:'After an impossible accident, a young man wakes in a world governed by strange laws. His second life may be a gift—or a carefully designed trap.',rating:'—',format:'Digital novel',price:'Sample available'},
+ {id:'quiet-library',title:'The Quiet Library',type:'book',genre:['mystery'],tag:'Mystery · Fiction',desc:'A librarian finds a book that records events before they happen.',author:'Shadow Library',year:'2026',cover:'book-b',synopsis:'A mysterious book appears on a return shelf, containing tomorrow’s events in precise detail. Its final page has the librarian’s name.',rating:'—',format:'E-book',price:'Coming soon'}
 ];
-const labels={books:["E-Books","الكتب الإلكترونية"],novels:["Novels","الروايات"],movies:["Movies","الأفلام"],series:["TV Series","المسلسلات"],anime:["Anime","الأنمي"],favorites:["My Library","مكتبتي"]};
-let lang="en",currentPage="home",lastPage="home",currentItem=null;
-let favorites=JSON.parse(localStorage.getItem("shadowFavorites")||"[]");
-const $=id=>document.getElementById(id);
-function t(en,ar){return lang==="en"?en:ar}
-function coverMarkup(item){
-let image="";
-if(item.title==="The Cursed House") image="cursed-house.png";
-if(item.title==="The Last Letter") image="last-letter.png";
-
-return `<div class="cover" style="background:${item.art};position:relative;overflow:hidden">
-${image?`<img src="${image}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">`:`<div class="cover-art">${item.icon}</div>`}
-<span class="cover-tag" style="position:relative">${item.genre}</span>
-<div class="cover-title" style="position:relative">${item.title}</div>
-</div>`;
+const media = [
+ {id:'midnight-film',title:'Midnight Signal',type:'movie',genre:['Thriller','Mystery'],tag:'Mystery Thriller',desc:'A late-night radio host receives a call from someone who vanished years ago.',year:'2025',duration:'1h 48m',director:'To be added',cast:'To be added',rating:'—',synopsis:'A radio host begins receiving calls from a missing person, each one revealing details that should be impossible to know.',cover:'movie-a'},
+ {id:'last-station',title:'The Last Station',type:'movie',genre:['Drama','Mystery'],tag:'Drama · Mystery',desc:'A remote station. A delayed train. Five strangers with the same secret.',year:'2024',duration:'2h 02m',director:'To be added',cast:'To be added',rating:'—',synopsis:'Five strangers become trapped at a remote station during a storm, where each discovers a connection to the same unsolved disappearance.',cover:'movie-b'},
+ {id:'blackwood-files',title:'The Blackwood Files',type:'series',genre:['Crime','Mystery'],tag:'Mystery Series',desc:'A detective reopens cases that were closed for the wrong reasons.',year:'2026',seasons:'1 season',episodes:'8 episodes',creator:'To be added',cast:'To be added',rating:'—',synopsis:'A determined investigator revisits forgotten cases and finds a hidden pattern connecting families across the town.',cover:'series-a'},
+ {id:'cursed-moon',title:'Cursed Moon',type:'anime',genre:['Action','Fantasy','Supernatural'],tag:'Dark Fantasy Anime',desc:'A young fighter discovers the source of a curse spreading through the capital.',year:'2026',studio:'To be added',episodes:'12 episodes',status:'Planned',rating:'—',synopsis:'In a city where fear takes physical form, a young fighter must uncover the origin of a spreading curse before the final eclipse.',cover:'anime-a'}
+];
+let currentPage='home',activeFilter='all',currentTitle=null,arabic=false;
+const allItems=[...catalog,...media];
+function card(item){
+ const title=item.title.replaceAll('<','&lt;');
+ return `<article class="item-card"><div class="poster ${item.cover||''}"><div class="poster-title">${title}</div></div><div class="card-body"><div class="card-kicker">${item.tag||item.type}</div><h3>${title}</h3><p>${item.desc||''}</p><div class="card-meta"><span class="rating">${item.year||''}</span><button class="small-btn" onclick="openDetail('${item.id}')">Details</button></div></div></article>`;
 }
-function cardMarkup(item){return `<article class="media-card" onclick="openDetail(${item.id})">${coverMarkup(item)}<div class="media-info"><h3>${item.title}</h3><div class="meta"><span>${item.year} • ${item.genre}</span><span class="rating">✦ ${item.rating}</span></div></div></article>`}
-function renderFeatured(){$("featuredGrid").innerHTML=items.slice(0,5).map(cardMarkup).join("")}
-function showPage(page){
+function fill(id,items){document.getElementById(id).innerHTML=items.length?items.map(card).join(''):'<div class="empty">No titles found yet. New content will appear here.</div>'}
+function render(){
+ fill('homeBooks',catalog.slice(0,3));fill('homeMedia',media);
+ fill('booksGrid',catalog.filter(x=>x.type==='book'));
+ fill('novelsGrid',catalog.filter(x=>x.type==='novel'));
+ fill('moviesGrid',media.filter(x=>x.type==='movie'));
+ fill('seriesGrid',media.filter(x=>x.type==='series'));
+ fill('animeGrid',media.filter(x=>x.type==='anime'));
+ showSaved();
+}
+function go(page){
  currentPage=page;
- document.querySelectorAll(".page-view").forEach(el=>el.classList.remove("active"));
- document.querySelectorAll(".nav-link").forEach(el=>el.classList.toggle("active",el.dataset.page===page));
- if(page==="home")$("homePage").classList.add("active");
- else if(page==="settings")$("settingsPage").classList.add("active");
- else if(page==="detail")$("detailPage").classList.add("active");
- else{
-  $("listingPage").classList.add("active");
-  let data=page==="favorites"?items.filter(x=>favorites.includes(x.id)):items.filter(x=>x.type===page);
-  $("listingTitle").textContent=labels[page]?.[lang==="en"?0:1]||page;
-  $("listingSubtitle").textContent=page==="favorites"?t("Your saved titles","العناوين التي حفظتها"):t("Explore the collection","استكشف المجموعة");
-  $("listingGrid").innerHTML=data.length?data.map(cardMarkup).join(""):`<div class="empty">${t("Nothing here yet. Add titles to your library using the bookmark button.","لا توجد عناوين هنا بعد. أضف عناوين إلى مكتبتك باستخدام زر الحفظ.")}</div>`;
- }
- $("searchInput").value="";
- closeSidebarIfMobile();
- window.scrollTo({top:0,behavior:"smooth"});
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ const target=document.getElementById('page-'+page);if(target)target.classList.add('active');
+ document.querySelectorAll('.side-nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ toggleMenu(false);window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleMenu(force){
+ const s=document.getElementById('sidebar'),o=document.getElementById('overlay');
+ const open=typeof force==='boolean'?force:!s.classList.contains('open');
+ s.classList.toggle('open',open);o.classList.toggle('open',open);
+}
+function searchBooks(q){
+ // Search is intentionally limited to books and novels; it never searches movies, series or anime.
+ const query=q.trim().toLowerCase();
+ go('books');
+ if(!query){fill('booksGrid',catalog.filter(x=>x.type==='book'||x.type==='novel'));return;}
+ const found=catalog.filter(x=>(x.type==='book'||x.type==='novel')&&[x.title,x.author,x.tag,...x.genre].join(' ').toLowerCase().includes(query));
+ fill('booksGrid',found);
+}
+document.getElementById('bookFilters').addEventListener('click',e=>filterClick(e,'booksGrid','book'));
+document.getElementById('novelFilters').addEventListener('click',e=>filterClick(e,'novelsGrid','novel'));
+function filterClick(e,target,type){
+ const b=e.target.closest('[data-filter]');if(!b)return;
+ b.parentElement.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));
+ const f=b.dataset.filter;fill(target,catalog.filter(x=>x.type===type&&(f==='all'||x.genre.includes(f))));
 }
 function openDetail(id){
- const item=items.find(x=>x.id===id);if(!item)return;
- currentItem=item;lastPage=currentPage;
- $("homePage").classList.remove("active");$("listingPage").classList.remove("active");$("settingsPage").classList.remove("active");
- $("detailPage").classList.add("active");currentPage="detail";
- const saved=favorites.includes(id);
- $("detailContent").innerHTML=`<div class="detail-panel"><div class="detail-cover" style="background:${item.art}">${item.icon}</div><div class="detail-text"><div class="eyebrow">${item.genre.toUpperCase()}</div><h1>${item.title}</h1><div class="meta" style="justify-content:flex-start;gap:18px"><span>${item.year}</span><span>${item.status}</span><span class="rating">✦ ${item.rating}</span></div><div class="pills"><span class="pill">${item.genre}</span><span class="pill">${labels[item.type][lang==="en"?0:1]}</span></div><p>${lang==="en"?item.desc:item.descAr}</p><div class="detail-actions"><button class="primary-btn" onclick="readItem(${id})">${item.type==="novels"||item.type==="books"?t("Open reader","فتح القارئ"):t("View information","عرض المعلومات")}</button><button class="ghost-btn" onclick="toggleFavorite(${id})" id="favoriteBtn">${saved?t("♥ Saved to My Library","♥ محفوظ في مكتبتي"):t("♡ Add to My Library","♡ أضف إلى مكتبتي")}</button></div><p style="font-size:10px;margin-top:22px">${item.type==="movies"||item.type==="series"||item.type==="anime"?t("Viewing note: this is a catalogue interface demo. Playback requires a licensed streaming source.","ملاحظة: هذه واجهة فهرسة تجريبية. المشاهدة تتطلب مصدراً مرخصاً للبث."):t("Reading content will be added when the story is published.","ستتم إضافة محتوى القراءة عند نشر القصة.")}</p></div></div><div id="readerArea"></div>`;
- window.scrollTo({top:0,behavior:"smooth"});
+ const x=allItems.find(i=>i.id===id);if(!x)return;currentTitle=x;
+ const isBook=x.type==='book'||x.type==='novel';
+ let rows=isBook?[
+ ['Author',x.author],['Published',x.year],['Format',x.format||'E-book'],['Availability',x.price||'Coming soon']
+ ]:x.type==='anime'?[
+ ['Studio',x.studio],['Year',x.year],['Episodes',x.episodes],['Status',x.status],['Rating',x.rating]
+ ]:x.type==='series'?[
+ ['Creator',x.creator],['Year',x.year],['Seasons',x.seasons],['Episodes',x.episodes],['Cast',x.cast]
+ ]:[
+ ['Director',x.director],['Year',x.year],['Duration',x.duration],['Cast',x.cast],['Rating',x.rating]
+ ];
+ const chapters=isBook&&x.chapters?`<h3>Chapters</h3><div class="chapter-list">${x.chapters.map((c,i)=>`<div class="chapter-row"><span>Chapter ${i+1} — ${c}</span><button class="small-btn" onclick="openReader('${x.id}',${i})">Read</button></div>`).join('')}</div>`:'';
+ const action=isBook?`<button class="btn primary" onclick="openReader('${x.id}',0)">Read ${x.type==='novel'?'novel':'book'}</button>`:`<button class="btn primary" onclick="alert('Playback will be enabled when a licensed video source is connected for this title.')">▶ Watch</button>`;
+ document.getElementById('detailMount').innerHTML=`
+ <div class="detail-wrap"><div class="detail-hero"><div class="detail-cover">${x.title}</div><div class="detail-info"><div class="eyebrow">${x.tag||x.type}</div><h1>${x.title}</h1><div class="pills">${(x.genre||[]).map(g=>`<span class="pill">${g}</span>`).join('')}<span class="pill">${x.year||''}</span></div><p style="color:var(--muted)">${x.desc||''}</p>${action} <button class="btn" onclick="saveTitle('${x.id}')">♡ Save</button></div></div>
+ <div class="detail-content"><h3>Story / Synopsis</h3><p>${x.synopsis||x.desc||''}</p><h3>Details</h3><div class="info-grid">${rows.map(r=>`<div class="info-row"><span>${r[0]}</span><strong>${r[1]||'To be added'}</strong></div>`).join('')}</div>${chapters}
+ ${!isBook?'<div class="notice">Video playback is not connected yet. This page is ready for a licensed streaming source or a video file you have the rights to distribute. No unlicensed streams are embedded.</div>':''}
+ </div></div>`;
+ go('detail');
 }
-function goBack(){showPage(lastPage==="detail"?"home":lastPage)}
-function readItem(id){
- const item=items.find(x=>x.id===id);if(!item)return;
- const saved=localStorage.getItem("shadowRead_"+id)||"0";
- $("readerArea").innerHTML=`<div class="reader"><h2>${item.title}</h2><p style="text-align:center;color:#827566">${t("A preview page","صفحة معاينة")}</p><hr style="border:0;border-top:1px solid #d5c9b9"><p>${t("The full story has not been published yet. This reader is ready for the chapters when they are added.","لم تُنشر القصة كاملة بعد. القارئ جاهز لاستقبال الفصول عند إضافتها.")}</p><p>${t("Your reading position is saved in this browser.","يتم حفظ موضع قراءتك في هذا المتصفح.")}</p></div><div class="reader-controls"><button class="ghost-btn" onclick="saveRead(${id},0)">${t("Start reading","ابدأ القراءة")}</button><span class="muted">${t("Saved position:","موضع الحفظ:")} ${saved}</span></div>`;
- $("readerArea").scrollIntoView({behavior:"smooth"});
+function openReader(id,index){
+ const x=catalog.find(i=>i.id===id);if(!x)return;
+ const key='shadow-progress-'+id;const saved=Number(localStorage.getItem(key)||0);
+ const n=Number.isInteger(index)?index:saved;
+ const chapter=x.chapters?.[n]||'Sample chapter';
+ const sample=n===0?'The house stood at the end of the road, where the streetlights gave up and the trees leaned close together. No one in town agreed on when it had been built. They only agreed that its clocks had stopped.':`The silence inside the house seemed to grow heavier with every step. Somewhere beyond the wall, a clock gave a single, impossible tick.`;
+ document.getElementById('readerMount').innerHTML=`<article class="reader-box"><button class="small-btn" onclick="openDetail('${id}')">← Back to details</button><div class="eyebrow" style="margin-top:25px">SHADOW READER</div><h1>${x.title}</h1><h2 style="font-size:20px">${chapter}</h2><div class="progress-track"><div class="progress-fill" style="width:${Math.round(((n+1)/x.chapters.length)*100)}%"></div></div><p class="muted">Chapter ${n+1} of ${x.chapters.length} · Reading position saved on this device</p><div class="reader-text"><p>${sample}</p><p>At the gate, a folded note waited beneath a stone. It carried just one sentence: <em>Do not enter after the clocks begin ticking again.</em></p></div><div class="actions"><button class="btn" ${n===0?'disabled':''} onclick="openReader('${id}',${n-1})">Previous</button><button class="btn primary" ${n===x.chapters.length-1?'disabled':''} onclick="openReader('${id}',${n+1})">Next chapter</button></div><div class="notice">This is a reading prototype. Add your finished chapter text to the novel data before publishing the complete book.</div></article>`;
+ localStorage.setItem(key,String(n));go('reader');
 }
-function saveRead(id,pos){localStorage.setItem("shadowRead_"+id,String(pos));toast(t("Reading position saved","تم حفظ موضع القراءة"))}
-function toggleFavorite(id){
- favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];
- localStorage.setItem("shadowFavorites",JSON.stringify(favorites));
- const btn=$("favoriteBtn");if(btn)btn.textContent=favorites.includes(id)?t("♥ Saved to My Library","♥ محفوظ في مكتبتي"):t("♡ Add to My Library","♡ أضف إلى مكتبتي");
- toast(favorites.includes(id)?t("Added to My Library","تمت الإضافة إلى مكتبتي"):t("Removed from My Library","تمت الإزالة من مكتبتي"));
+function saveTitle(id){
+ let saved=JSON.parse(localStorage.getItem('shadow-saved')||'[]');
+ saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
+ localStorage.setItem('shadow-saved',JSON.stringify(saved));alert(saved.includes(id)?'Added to favorites.':'Removed from favorites.');showSaved();
 }
-function clearFavorites(){favorites=[];localStorage.setItem("shadowFavorites","[]");showPage("favorites");toast(t("Favorites cleared","تم مسح المفضلة"))}
+function showSaved(){
+ const ids=JSON.parse(localStorage.getItem('shadow-saved')||'[]');
+ fill('savedGrid',allItems.filter(x=>ids.includes(x.id)));
+}
 function toggleLanguage(){
- lang=lang==="en"?"ar":"en";document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
- $("languageBtn").textContent=lang==="en"?"العربية":"English";
- document.querySelectorAll("[data-en][data-ar]").forEach(el=>{el.textContent=el.getAttribute("data-"+lang)});
- $("searchInput").placeholder=$("searchInput").getAttribute("data-placeholder-"+lang);
- renderFeatured();
- if(currentPage==="detail"&&currentItem)openDetail(currentItem.id);
- else if(currentPage!=="home")showPage(currentPage);
+ arabic=!arabic;
+ document.documentElement.lang=arabic?'ar':'en';document.documentElement.dir=arabic?'rtl':'ltr';
+ document.querySelector('.lang-btn').textContent=arabic?'English':'العربية';
+ document.getElementById('searchBox').placeholder=arabic?'ابحث عن كتاب أو رواية أو كاتب...':'Search books, novels, authors…';
 }
-function toggleSidebar(){$("sidebar").classList.toggle("open");$("overlay").classList.toggle("show")}
-function closeSidebarIfMobile(){if(innerWidth<=760){$("sidebar").classList.remove("open");$("overlay").classList.remove("show")}}
-function toast(message){$("toast").textContent=message;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2200)}
-document.querySelectorAll(".nav-link").forEach(btn=>btn.addEventListener("click",()=>showPage(btn.dataset.page)));
-$("searchInput").addEventListener("input",e=>{
- const q=e.target.value.trim().toLowerCase();if(!q)return;
- const matches=items.filter(x=>(x.type==="books"||x.type==="novels")&&(x.title.toLowerCase().includes(q)||x.genre.toLowerCase().includes(q)));
- currentPage="search";document.querySelectorAll(".page-view").forEach(el=>el.classList.remove("active"));$("listingPage").classList.add("active");
- $("listingTitle").textContent=t("Search results","نتائج البحث");$("listingSubtitle").textContent=t("Books, novels and authors only","الكتب والروايات وأسماء الكتّاب فقط");
- $("listingGrid").innerHTML=matches.length?matches.map(cardMarkup).join(""):`<div class="empty">${t("No matching books or novels found.","لم يتم العثور على كتب أو روايات مطابقة.")}</div>`;
-});
-renderFeatured();
+render();
 </script>
 </body>
 </html>
